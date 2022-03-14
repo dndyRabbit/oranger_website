@@ -11,7 +11,7 @@ const Nav = () => {
   const history = useHistory();
 
   const navLinks = [
-    { label: "Dashboard", path: "/dashboard" },
+    { label: "Dashboard", path: "/dashboard/presensiPetugas" },
     { label: "Monitoring", path: "/monitoring" },
     { label: "Daftar Petugas", path: "/daftar_petugas" },
   ];
