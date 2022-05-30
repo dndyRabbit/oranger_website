@@ -13,6 +13,7 @@ export const updateProfileUser =
       let media;
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
+      console.log(avatar);
       if (avatar) media = await imageUpload([avatar]);
 
       const res = await patchDataAPI(

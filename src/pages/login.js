@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../redux/actions/authAction";
 import { LoadingFullscreen } from "../components/LoadingBar";
+
+import Logo from "../images/lgoo.png";
 
 const Login = () => {
   const initialState = { email: "", password: "" };
@@ -11,11 +13,11 @@ const Login = () => {
 
   const { auth, alert } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth.token) history.push("/");
-  }, [auth.token, history]);
+    if (auth.token) navigate("/");
+  }, [auth.token, navigate]);
 
   console.log(alert.loading);
 
@@ -32,14 +34,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex mx-auto w-full h-full items-center justify-center">
-      <div className="w-full h-auto max-w-[450px] max-h-[400px] bg-white rounded-lg shadow-lg p-4 ">
+    <div className="flex mx-auto w-full h-full items-center justify-center p-5 ">
+      <div className="w-full h-auto max-w-[500px] max-h-[600px] bg-white rounded-lg shadow-lg p-4 ">
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-          <img
-            src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Akali_32.jpg"
-            alt=""
-            className="w-[150px] h-[75px]"
-          />
+          <img src={Logo} alt="" className=" h-25 w-50 self-center" />
 
           <div className="flex flex-col">
             <label>Email Address</label>
@@ -71,6 +69,16 @@ const Login = () => {
           >
             Login
           </button>
+
+          <p>
+            Belum punya akun admin?{" "}
+            <Link
+              to={"/register"}
+              className="italic text-orange-400 hover:text-gray-500"
+            >
+              Register now
+            </Link>
+          </p>
         </form>
       </div>
 

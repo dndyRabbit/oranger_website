@@ -11,7 +11,7 @@ export const LoadingFullscreen = () => {
 export const LoadingComponent = () => {
   return (
     <div
-      className={`bg-transparent flex items-center justify-center w-full max-w-5xl h-[400px] `}
+      className={`bg-transparent flex items-center justify-center w-full max-w-5xl h-[300px]`}
     >
       <ReactLoading type={"cylon"} color={"#ffa500"} height={150} width={150} />
     </div>

@@ -1,14 +1,19 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { refreshToken } from "./redux/actions/authAction";
 
 import { getAllUser } from "./redux/actions/userAction";
 
+import CustomRouter from "./customRouter/CustomRouter";
+import {
+  getUsersAndRoles,
+  getUsersAndRolesAbsensi,
+} from "./redux/actions/wilayahAction";
+
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Notify from "./components/Toaster";
-import Routes from "./customRouter/Routes";
 
 function App() {
   const { auth, alert } = useSelector((state) => state);
@@ -16,15 +21,20 @@ function App() {
 
   useEffect(() => {
     dispatch(refreshToken());
+  }, [dispatch, auth.token]);
+
+  useEffect(() => {
     if (auth.token) {
       dispatch(getAllUser({ auth }));
+      dispatch(getUsersAndRoles({ auth }));
+      dispatch(getUsersAndRolesAbsensi({ auth }));
     }
-  }, [dispatch, auth.token]);
+  }, [auth.token]);
 
   return (
     <Router>
-      <Routes />
-      <Notify />
+      <CustomRouter />
+      <ToastContainer autoClose={2000} />
     </Router>
   );
 }

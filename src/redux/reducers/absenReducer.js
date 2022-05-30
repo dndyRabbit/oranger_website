@@ -8,12 +8,12 @@ const absenReducer = (state = initialState, action) => {
   switch (action.type) {
     case ABSEN_TYPES.GET_ABSEN:
       return {
-        absensi: action.payload.listOfPetugas[0],
+        absensi: action.payload.user,
       };
     case ABSEN_TYPES.POST_PETUGAS_ABSEN:
       console.log(action.payload);
       return {
-        absensi: action.payload.listOfPetugas,
+        absensi: action.payload.absensiPetugas,
       };
     case ABSEN_TYPES.PATCH_PETUGAS_ABSEN:
       console.log(state.absensi);

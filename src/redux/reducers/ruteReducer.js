@@ -1,24 +1,19 @@
-import { RUTE_TYPES } from "../actions/ruteAction";
 import { DeleteData } from "../actions/globalTypes";
+import { RUTE_TYPES } from "../actions/ruteAction";
 
 const initialState = {
-  rute: [],
+  userRute: [],
 };
 
 const ruteReducer = (state = initialState, action) => {
   switch (action.type) {
-    case RUTE_TYPES.GET_RUTE:
+    case RUTE_TYPES.GET_USER_RUTE_ACCORDING_TO_WILAYAH:
       return {
-        rute: action.payload.rute,
+        userRute: action.payload.user,
       };
-    case RUTE_TYPES.POST_RUTE:
+    case RUTE_TYPES.DELETE_RUTE_USER:
       return {
-        rute: action.payload.rute,
-      };
-    case RUTE_TYPES.DELETE_RUTE:
-      console.log(state.rute);
-      return {
-        rute: DeleteData(state.rute, action.payload.id),
+        userRute: DeleteData(state.userRute, action.payload.id),
       };
     default:
       return state;

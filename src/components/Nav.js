@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { logout } from "../redux/actions/authAction";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
+
+import Logo from "../images/lgoo.png";
 
 const Nav = () => {
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const navLinks = [
     { label: "Dashboard", path: "/dashboard/presensiPetugas" },
@@ -30,7 +32,7 @@ const Nav = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    history.push("/");
+    navigate("/");
   };
 
   return (
@@ -38,9 +40,9 @@ const Nav = () => {
       <div className="flex flex-row w-full max-w-5xl items-center justify-between ">
         <Link to="/">
           <img
-            src="https://dafunda.com/wp-content/uploads/2020/11/Build-Terbaik-Akali-LoL-Wild-Rift.jpg"
+            src={Logo}
             alt=""
-            className="w-[70px] h-[70px] rounded-full"
+            className=" h-20 w-40 self-center hover:border hover:rounded-md hover:scale-110 transition"
           />
         </Link>
         <div className="flex space-x-4">

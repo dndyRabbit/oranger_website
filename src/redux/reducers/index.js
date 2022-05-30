@@ -3,18 +3,30 @@ import auth from "./authReducer";
 import alert from "./alertReducer";
 import absen from "./absenReducer";
 import user from "./userReducer";
-import userNotVerified from "./userNotVerifiedReducer";
+import petugasNotVerified from "./userNotVerifiedReducer";
 import wilayah from "./wilayahReducer";
-import rute from "./ruteReducer";
-import userNotAdd from "./userIsNotAddReducer";
+import petugasNotRoled from "./userNotRoledReducer";
+import userRole from "./roleReducer";
+import petugasAndRoles from "./usersAndRolesReducer";
+import petugasAndRolesAbsensi from "./usersAndRolesAbsensiReducer";
+import userRute from "./ruteReducer";
+import report from "./reportReducer";
+import permission from "./permissionReducer";
+import permissionApproved from "./permissionApprovedReducer";
 
 export default combineReducers({
   auth,
   alert,
   absen,
   user,
-  userNotVerified,
+  petugasNotVerified,
   wilayah,
-  rute,
-  userNotAdd,
+  petugasNotRoled,
+  userRole,
+  petugasAndRoles,
+  userRute,
+  report,
+  permission,
+  permissionApproved,
+  petugasAndRolesAbsensi,
 });

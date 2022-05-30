@@ -1,34 +1,13 @@
 import React, { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  TrashIcon,
-  CheckIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/outline";
-
-import { useDispatch, useSelector } from "react-redux";
-import { updateVerifikasiUser } from "../redux/actions/userAction";
+import TambahPetugasTabel from "./TambahPetugasTabel";
 
 export default function DaftarPetugasModal({
   isOpen,
   setIsOpen,
   userNotVerified,
 }) {
-  console.log(userNotVerified);
-  const dispatch = useDispatch();
-  const { auth } = useSelector((state) => state);
-
   const cancelButtonRef = useRef(null);
-
-  const handleTambahPetugas = (id) => {
-    console.log(id);
-    dispatch(updateVerifikasiUser({ auth, id }));
-  };
-  const handleInfoPetugas = () => {};
-
-  const handleHapusPetugas = (id) => {
-    dispatch(updateVerifikasiUser({ auth, id }));
-  };
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -61,76 +40,7 @@ export default function DaftarPetugasModal({
                       Tambah Petugas
                     </h3>
                     {/* Map funtionally petugas pasukan oranye yang akan di tambahkan */}
-                    {userNotVerified?.map((person) => (
-                      <div
-                        key={person._id}
-                        className="flex space-x-2 items-center justify-between px-5 border-y border-gray-400 overflow-hidden"
-                      >
-                        <img
-                          src={person.avatar}
-                          alt="My Photos"
-                          className="h-20 w-20 rounded-full"
-                        />
-
-                        <div className=" sm:space-x-2 items-center w-full text-sm sm:flex inline-block sm:space-y-0 space-y-2">
-                          <div className=" space-y-2 sm:pr-4 border-r-2">
-                            <p className="text-md text-black font-semibold">
-                              {person.namaLengkap}
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {person.jenisKelamin}
-                            </p>
-                          </div>
-                          <div className=" space-y-2 sm:pr-4  border-r-2">
-                            <p className="text-md text-black font-semibold">
-                              Tanggal Lahir
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {person.tanggalLahir}
-                            </p>
-                          </div>
-                          <div className=" space-y-2 sm:pr-4  border-r-2">
-                            <p className="text-md text-black font-semibold">
-                              KTP
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {person.noKTP}
-                            </p>
-                          </div>
-                          <div className=" space-y-2 sm:pr-4  border-r-2">
-                            <p className="text-md text-black font-semibold">
-                              No.Handphone
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {person.noHandphone}
-                            </p>
-                          </div>
-                          <div className=" space-y-2 border-r-2">
-                            <p className="text-md text-black font-semibold">
-                              Alamat
-                            </p>
-                            <p className="text-sm text-gray-500">
-                              {person.alamatLengkap}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="space-y-2">
-                          <CheckIcon
-                            onClick={() => handleTambahPetugas(person._id)}
-                            className="h-9 cursor-pointer hover:border hover:rounded-full hover:bg-orange-400 p-2"
-                          />
-                          {/* <InformationCircleIcon
-                            onClick={handleInfoPetugas}
-                            className="h-9 cursor-pointer hover:border hover:rounded-full hover:bg-blue-100 p-2"
-                          /> */}
-                          <TrashIcon
-                            onClick={() => handleHapusPetugas(person._id)}
-                            className="h-9 cursor-pointer hover:border hover:rounded-full hover:bg-red-600 hover:text-white p-2"
-                          />
-                        </div>
-                      </div>
-                    ))}
+                    <TambahPetugasTabel userNotVerified={userNotVerified} />
                   </div>
 
                   {/* ------------------------ */}

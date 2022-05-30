@@ -44,10 +44,10 @@ const Profile = () => {
     const err = checkImage(file);
     if (err)
       return dispatch({
-        type: GLOBALTYPES.alert,
+        type: GLOBALTYPES.ALERT,
         payload: { error: err },
       });
-
+    console.log(file);
     setAvatar(file);
   };
 
@@ -75,19 +75,10 @@ const Profile = () => {
                 <input
                   type="text"
                   name="namaLengkap"
-                  placeholder={auth.user.namaLengkap}
+                  placeholer={auth.user.namaLengkap}
                   className="p-2 bg-transparent border border-gray-300 rounded-md"
                   value={namaLengkap}
                   onChange={handleChangeInput}
-                />
-              </div>
-              <div className="flex flex-col w-[400px]">
-                <label>Username</label>
-                <input
-                  type="text"
-                  className="p-2 bg-transparent border border-gray-300 rounded-md bg-gray-300 "
-                  disabled={true}
-                  value={auth.user.username}
                 />
               </div>
             </div>
@@ -150,16 +141,6 @@ const Profile = () => {
                   name="tanggalLahir"
                   value={tanggalLahir}
                   onChange={handleChangeInput}
-                />
-              </div>
-              <div className="flex flex-col w-[400px]">
-                <label>Role</label>
-                <input
-                  type="email"
-                  placeholder="Examples@gmail.com"
-                  className="p-2 bg-transparent border border-gray-300 rounded-md bg-gray-300 "
-                  disabled={true}
-                  value={auth.user.role}
                 />
               </div>
             </div>

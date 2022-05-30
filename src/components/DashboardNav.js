@@ -6,11 +6,10 @@ const DashboardNav = ({ nav }) => {
 
   const navLinks = [
     { label: "Presensi Petugas", path: "/dashboard/presensiPetugas" },
-    { label: "Hasil Pekerjaan", path: "/dashboard/hasilPekerjaan" },
-    { label: "Rute Petugas", path: "/dashboard/rutePetugas" },
-
-    { label: "Tambah Rute", path: "/dashboard/tambahRute" },
-    { label: "Detail Rute", path: "/dashboard/detailRute" },
+    { label: "Hasil Pekerjaan", path: "/dashboard/report" },
+    { label: "Role Petugas", path: "/dashboard/role" },
+    { label: "Wilayah", path: "/dashboard/wilayah" },
+    { label: "Permission", path: "/dashboard/permission/submission" },
   ];
 
   const isActive = (pn) => {

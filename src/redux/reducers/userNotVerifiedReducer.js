@@ -19,6 +19,13 @@ const userNotVerifiedReducer = (state = initialState, action) => {
           action.payload.id
         ),
       };
+    case USER_TYPES.DELETE_PETUGAS:
+      return {
+        petugasNotVerified: DeleteData(
+          state.petugasNotVerified,
+          action.payload.id
+        ),
+      };
     default:
       return state;
   }

@@ -1,27 +1,21 @@
-import React, { useState, useEff } from "react";
-import { format } from "date-fns";
-import { useDispatch } from "react-redux";
-import { patchPetugasAbsen } from "../../redux/actions/absenAction";
+import React, { useState, useEffect } from "react";
 
-const AbsenTabel = ({ dataTable, search, auth, presensi }) => {
-  const dispatch = useDispatch();
+import { PencilIcon } from "@heroicons/react/outline";
+import AbsenTabelContent from "./AbsenTabelContent";
+import { useDispatch } from "react-redux";
+
+const AbsenTabel = ({
+  dataTable,
+  search,
+  presensi,
+  setModal,
+  select,
+  handleChangeStatus,
+}) => {
+  const img =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg";
 
   const newDataTable = dataTable?.absensi?.petugasAbsensi;
-
-  const data = dataTable?.absensi;
-
-  const handleSubmit = (person) => {
-    // sementara nanti diapus, jika sudah membuat aplikasi android
-    dispatch(
-      patchPetugasAbsen({
-        tanggal: data.tanggal,
-        userId: person._id,
-        statusAbsen: "Hadir",
-        id: data._id,
-        auth,
-      })
-    );
-  };
 
   return (
     <div className="flex flex-col">
@@ -49,137 +43,116 @@ const AbsenTabel = ({ dataTable, search, auth, presensi }) => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Status
+                    Pekerjaan
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Tanggal
+                    Absen Masuk
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Submit
+                    Absen Keluar
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Bukti
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Status Absen
                   </th>
                 </tr>
               </thead>
 
               <tbody className="bg-white divide-y divide-gray-200">
-                {presensi
-                  ? newDataTable
-                      ?.filter((val) => {
-                        if (presensi === "") {
-                          return val;
-                        } else if (val.statusAbsen.includes(presensi)) {
-                          return val;
-                        }
-                      })
-                      .map((person, index) => {
-                        // console.log(person);
-                        return (
-                          <tr key={index}>
-                            <td className="px-6 py-4  text-sm text-gray-500">
-                              {++index}
-                            </td>
-                            <td className="px-6 py-4 ">
-                              <div className="flex items-center">
-                                <div className="flex-shrink-0 h-10 w-10">
-                                  <img
-                                    className="h-10 w-10 rounded-full"
-                                    src={person.avatar}
-                                    alt=""
-                                  />
-                                </div>
-                                <div className="ml-4">
-                                  <div className="text-sm font-medium text-gray-900">
-                                    {person.namaLengkap}
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
+                {select &&
+                  newDataTable
+                    ?.filter((val) => {
+                      if (select === "") {
+                        return val;
+                      } else if (val.role.includes(select)) {
+                        return val;
+                      }
+                    })
+                    .map((person, index) => {
+                      return (
+                        <AbsenTabelContent
+                          person={person}
+                          index={index}
+                          setModal={setModal}
+                          handleChangeStatus={handleChangeStatus}
+                          img={img}
+                        />
+                      );
+                    })}
+                {presensi &&
+                  newDataTable
+                    ?.filter((val) => {
+                      if (presensi === "") {
+                        return val;
+                      } else if (val.statusAbsen.includes(presensi)) {
+                        return val;
+                      }
+                    })
+                    .map((person, index) => {
+                      return (
+                        <AbsenTabelContent
+                          person={person}
+                          index={index}
+                          setModal={setModal}
+                          handleChangeStatus={handleChangeStatus}
+                          img={img}
+                        />
+                      );
+                    })}
+                {search &&
+                  newDataTable
+                    ?.filter((val) => {
+                      if (search === "") {
+                        return val;
+                      } else if (
+                        val.userId.namaLengkap
+                          .toLowerCase()
+                          .includes(search.toLowerCase())
+                      ) {
+                        return val;
+                      }
+                    })
+                    .map((person, index) => {
+                      return (
+                        <AbsenTabelContent
+                          person={person}
+                          index={index}
+                          setModal={setModal}
+                          handleChangeStatus={handleChangeStatus}
+                          img={img}
+                        />
+                      );
+                    })}
 
-                            <td className="px-6 py-4 ">
-                              <span
-                                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                  person.statusAbsen === "Belum Absen"
-                                    ? "bg-yellow-100 text-yellow-500"
-                                    : "bg-green-100 text-green-800"
-                                } `}
-                              >
-                                {person.statusAbsen}
-                              </span>
-                            </td>
-                            <td className="px-6 py-4  text-sm text-gray-500">
-                              {format(new Date(person.tanggal), "yyyy-MM-dd")}
-                            </td>
-                            <td className="px-6 py-4  text-sm text-gray-500">
-                              <button onClick={() => handleSubmit(person)}>
-                                Absen
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })
-                  : newDataTable
-                      ?.filter((val) => {
-                        if (search === "") {
-                          return val;
-                        } else if (
-                          val.namaLengkap
-                            .toLowerCase()
-                            .includes(search.toLowerCase())
-                        ) {
-                          return val;
-                        }
-                      })
-                      .map((person, index) => {
-                        // console.log(person);
-                        return (
-                          <tr key={index}>
-                            <td className="px-6 py-4  text-sm text-gray-500">
-                              {++index}
-                            </td>
-                            <td className="px-6 py-4 ">
-                              <div className="flex items-center">
-                                <div className="flex-shrink-0 h-10 w-10">
-                                  <img
-                                    className="h-10 w-10 rounded-full"
-                                    src={person.avatar}
-                                    alt=""
-                                  />
-                                </div>
-                                <div className="ml-4">
-                                  <div className="text-sm font-medium text-gray-900">
-                                    {person.namaLengkap}
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-
-                            <td className="px-6 py-4 ">
-                              <span
-                                className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                  person.statusAbsen === "Belum Absen"
-                                    ? "bg-yellow-100 text-yellow-500"
-                                    : "bg-green-100 text-green-800"
-                                } `}
-                              >
-                                {person.statusAbsen}
-                              </span>
-                            </td>
-                            <td className="px-6 py-4  text-sm text-gray-500">
-                              {format(new Date(person.tanggal), "yyyy-MM-dd")}
-                            </td>
-                            <td className="px-6 py-4  text-sm text-gray-500">
-                              <button onClick={() => handleSubmit(person)}>
-                                Absen
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
+                {!search &&
+                  !presensi &&
+                  !select &&
+                  newDataTable?.map((person, index) => {
+                    return (
+                      <AbsenTabelContent
+                        key={index}
+                        person={person}
+                        index={index}
+                        setModal={setModal}
+                        handleChangeStatus={handleChangeStatus}
+                        img={img}
+                      />
+                    );
+                  })}
               </tbody>
             </table>
           </div>

@@ -1,4 +1,6 @@
+import { toast } from "react-toastify";
 import { GLOBALTYPES } from "./globalTypes";
+
 import {
   deleteDataAPI,
   getDataAPI,
@@ -6,29 +8,32 @@ import {
   postDataAPI,
 } from "../../utils/fetchData";
 
+import { WILAYAH_TYPES } from "./wilayahAction";
+
 export const RUTE_TYPES = {
-  GET_RUTE: "GET_RUTE",
-  POST_RUTE: "POST_RUTE",
-  PATCH_RUTE: "PATCH_RUTE",
-  GET_USER_ISNT_ADD: "GET_USER_ISNT_ADD",
-  PATCH_USER_ISADD: "PATCH_USER_ISADD",
-  DELETE_RUTE: "DELETE_RUTE",
+  GET_USER_RUTE_ACCORDING_TO_WILAYAH: "GET_USER_RUTE_ACCORDING_TO_WILAYAH",
+  DELETE_RUTE_USER: "DELETE_RUTE_USER",
 };
 
-export const getRute =
-  ({ auth, _wilayahId }) =>
+export const postRute =
+  ({ auth, wilayahId, userId, role, roleId }) =>
   async (dispatch) => {
     try {
-      const id = _wilayahId;
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
-      const res = await getDataAPI(`getRute/${id}`, auth.token);
-      dispatch({
-        type: RUTE_TYPES.GET_RUTE,
-        payload: { rute: res.data.rute },
-      });
+      const res = await postDataAPI(
+        "postRute",
+        {
+          wilayahId,
+          userId,
+          role,
+          roleId,
+        },
+        auth.token
+      );
 
       dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+      toast.success(res.data.msg);
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -36,20 +41,23 @@ export const getRute =
           error: err.response.data.msg,
         },
       });
+      toast.warn(err.response.data.msg);
     }
   };
 
-export const getUserIsNotAdded =
-  ({ auth }) =>
+export const getUserRuteAccordingWilayah =
+  ({ auth, wilayahId }) =>
   async (dispatch) => {
     try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
-      const res = await getDataAPI(`getUserIsNotAdded`, auth.token);
-      console.log(res.data);
+      const res = await getDataAPI(
+        `getUserRuteAccordingWilayah/${wilayahId}`,
+        auth.token
+      );
 
       dispatch({
-        type: RUTE_TYPES.GET_USER_ISNT_ADD,
+        type: RUTE_TYPES.GET_USER_RUTE_ACCORDING_TO_WILAYAH,
         payload: { user: res.data.user },
       });
 
@@ -61,49 +69,30 @@ export const getUserIsNotAdded =
           error: err.response.data.msg,
         },
       });
+      toast.warn(err.response.data.msg);
     }
   };
 
-export const postRute =
-  ({
-    isAdd,
-    wilayahId,
-    latlng,
-    namaWilayah,
-    alamatRute,
-    namaLengkap,
-    avatar,
-    auth,
-    id,
-  }) =>
+export const patchIsRuted =
+  ({ auth, isRuted, userId, roleId }) =>
   async (dispatch) => {
     try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
-      const res = await postDataAPI(
-        "addRute",
+      const res = await patchDataAPI(
+        `updateIsRuted/${userId}`,
         {
-          avatar,
-          isAdd,
-          wilayahId,
-          latlng,
-          namaWilayah,
-          alamatRute,
-          namaLengkap,
-          userId: id,
+          isRuted,
         },
         auth.token
       );
-      console.log(res);
-
-      dispatch({ type: RUTE_TYPES.PATCH_USER_ISADD, payload: { id } });
 
       dispatch({
-        type: RUTE_TYPES.POST_RUTE,
-        payload: { rute: res.data.rute },
+        type: WILAYAH_TYPES.PATCH_USER_ISNT_RUTED,
+        payload: { id: roleId },
       });
 
       dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+      toast.success(res.data.msg);
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -111,28 +100,26 @@ export const postRute =
           error: err.response.data.msg,
         },
       });
+      toast.warn(err.response.data.msg);
     }
   };
 
-export const patchUserIsAdd =
-  ({ auth, id, isAdd }) =>
+export const patchAllIsRuted =
+  ({ auth }) =>
   async (dispatch) => {
     try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
       const res = await patchDataAPI(
-        `updateAddRutePetugas/${id}`,
+        `updateAllIsRuted`,
         {
-          isAdd,
+          isRuted: false,
         },
         auth.token
       );
-      console.log(res);
 
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {},
-      });
+      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+      toast.success(res.data.msg);
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -140,24 +127,29 @@ export const patchUserIsAdd =
           error: err.response.data.msg,
         },
       });
+      toast.warn(err.response.data.msg);
     }
   };
 
-export const deleteRute =
-  ({ auth, id }) =>
+export const deleteUserRute =
+  ({ auth, ruteId }) =>
   async (dispatch) => {
     try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
-      const res = await deleteDataAPI(`deleteRute/${id}`, auth.token);
+      const res = await deleteDataAPI(
+        `deleteUserRute/${ruteId}`,
 
-      console.log(res.data);
+        auth.token
+      );
 
-      dispatch({ type: RUTE_TYPES.DELETE_RUTE, payload: { id } });
       dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: { success: res.data.msg },
+        type: RUTE_TYPES.DELETE_RUTE_USER,
+        payload: { id: ruteId },
       });
+
+      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+      toast.success(res.data.msg);
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -165,5 +157,32 @@ export const deleteRute =
           error: err.response.data.msg,
         },
       });
+      toast.warn(err.response.data.msg);
+    }
+  };
+
+export const deleteAllUserRute =
+  ({ auth }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+
+      const res = await deleteDataAPI(`deleteAllUserRute`, auth.token);
+
+      dispatch({
+        type: RUTE_TYPES.GET_USER_RUTE_ACCORDING_TO_WILAYAH,
+        payload: {},
+      });
+
+      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+      toast.success(res.data.msg);
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: {
+          error: err.response.data.msg,
+        },
+      });
+      toast.warn(err.response.data.msg);
     }
   };

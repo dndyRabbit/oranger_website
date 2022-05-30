@@ -5,6 +5,7 @@ export const USER_TYPES = {
   GET_PETUGAS: "GET_PETUGAS",
   GET_PETUGAS_NOT_VERIFIED: "GET_PETUGAS_NOT_VERIFIED",
   PATCH_USER_ISVERIFIED: "PATCH_USER_ISVERIFIED",
+  DELETE_PETUGAS: "DELETE_PETUGAS",
 };
 
 export const getAllUser =
@@ -37,7 +38,8 @@ export const getAllUserNotVerified =
     try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
-      const res = await getDataAPI("getAllPetugasIsNotVerified", auth.token);
+      const res = await getDataAPI("allPetugasIsNotVerified", auth.token);
+      console.log(res.data.user);
 
       dispatch({
         type: USER_TYPES.GET_PETUGAS_NOT_VERIFIED,
@@ -70,9 +72,16 @@ export const updateVerifikasiUser =
         auth.token
       );
 
+      const otherRes = await getDataAPI("allPetugas", auth.token);
+
       dispatch({
         type: USER_TYPES.PATCH_USER_ISVERIFIED,
         payload: { id, isVerified: true },
+      });
+
+      dispatch({
+        type: USER_TYPES.GET_PETUGAS,
+        payload: { petugas: otherRes.data.user },
       });
 
       dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
@@ -87,12 +96,18 @@ export const updateVerifikasiUser =
   };
 
 export const deleteUser =
-  ({ auth, id }) =>
+  ({ auth, id, key }) =>
   async (dispatch) => {
     try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
       const res = await deleteDataAPI(`deletePetugas/${id}`, auth.token);
+      await getDataAPI("allPetugas", auth.token);
+
+      dispatch({
+        type: USER_TYPES.DELETE_PETUGAS,
+        payload: { id },
+      });
 
       dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
     } catch (err) {

@@ -6,20 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { PlusCircleIcon } from "@heroicons/react/outline";
 
-import { getAllUser, getAllUserNotVerified } from "../redux/actions/userAction";
+import { getAllUserNotVerified } from "../redux/actions/userAction";
 import DaftarPetugasModal from "../components/Modal";
 
 const DaftarPetugas = () => {
   const [search, setSearch] = useState(""); // put in redux later
 
-  const { auth, user, userNotVerified } = useSelector((state) => state);
+  const { auth, user, petugasNotVerified } = useSelector((state) => state);
 
   const [isOpen, setIsOpen] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getAllUser({ auth }));
     dispatch(getAllUserNotVerified({ auth }));
   }, [dispatch]);
 
@@ -44,7 +43,7 @@ const DaftarPetugas = () => {
           </div>
 
           <Table
-            dataTable={user.petugas}
+            dataTable={user?.petugas}
             search={search}
             setSearch={setSearch}
           />
@@ -52,7 +51,7 @@ const DaftarPetugas = () => {
       </div>
       {isOpen && (
         <DaftarPetugasModal
-          userNotVerified={userNotVerified?.petugasNotVerified}
+          userNotVerified={petugasNotVerified?.petugasNotVerified}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />

@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { TrashIcon, PencilAltIcon } from "@heroicons/react/solid";
-
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
+import {
+  TrashIcon,
+  PencilAltIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/solid";
+import { format } from "date-fns";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteUser } from "../redux/actions/userAction";
 
 const Table = ({ dataTable, search, setSearch }) => {
-  // console.log(dataTable.length);
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state);
+
+  const handleHapusPetugas = ({ id }) => {
+    dispatch(deleteUser({ auth, id, key: "main" }));
+  };
+
   return (
     <div className="flex flex-col">
       <div className="-my-2   sm:-mx-6 lg:-mx-8">
@@ -32,12 +42,7 @@ const Table = ({ dataTable, search, setSearch }) => {
                   >
                     Tanggal Lahir
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Role
-                  </th>
+
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -101,37 +106,36 @@ const Table = ({ dataTable, search, setSearch }) => {
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-medium text-gray-900">
-                                {person.namaLengkap}
+                                {person.fullName}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4  text-sm text-gray-500">
-                          {person.tanggalLahir}
-                        </td>
-
-                        <td className="px-6 py-4 ">
-                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-50 text-orange-500">
-                            {person.role.toUpperCase()}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4  text-sm text-gray-500">
-                          {person.jenisKelamin}
-                        </td>
-                        <td className="px-6 py-4  text-sm text-gray-500">
-                          {person.noKTP}
-                        </td>
-                        <td className="px-6 py-4  text-sm text-gray-500">
-                          {person.noHandphone}
+                          {/* {format(new Date(person.birthday), "yyyy-MM-dd")} */}
+                          {person.birthday}
                         </td>
 
                         <td className="px-6 py-4  text-sm text-gray-500">
-                          {person.alamatLengkap}
+                          {person.gender}
+                        </td>
+                        <td className="px-6 py-4  text-sm text-gray-500">
+                          {person.ktp}
+                        </td>
+                        <td className="px-6 py-4  text-sm text-gray-500">
+                          {person.handphone}
+                        </td>
+
+                        <td className="px-6 py-4  text-sm text-gray-500">
+                          {person.address}
                         </td>
                         <td className=" px-6 py-4  text-right text-sm font-medium space-y-6">
-                          <PencilAltIcon className="border-2 bg-gray-100 p rounded-md text-gray-500" />
+                          <InformationCircleIcon className="h-6 p rounded-full text-gray-500 hover:text-blue-400 cursor-pointer transition hover:-skew-x-12" />
 
-                          <TrashIcon className="border-2 bg-gray-100 p rounded-md text-red-500" />
+                          <TrashIcon
+                            onClick={() => handleHapusPetugas(person._id)}
+                            className="  h-6  p rounded-full  text-gray-500  hover:text-red-500 cursor-pointer transition hover:skew-x-12"
+                          />
                         </td>
                       </tr>
                     ) : (
