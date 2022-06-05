@@ -37,7 +37,7 @@ const Login = () => {
     <div className="flex mx-auto w-full h-full items-center justify-center p-5 ">
       <div className="w-full h-auto max-w-[500px] max-h-[600px] bg-white rounded-lg shadow-lg p-4 ">
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-          <img src={Logo} alt="" className=" h-25 w-50 self-center" />
+          {/* <img src={Logo} alt="" className=" h-25 w-50 self-center" /> */}
 
           <div className="flex flex-col">
             <label>Email Address</label>
