@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  GoogleMap,
-  withScriptjs,
-  withGoogleMap,
-  Marker,
-  Polygon,
-  InfoWindow,
-} from "react-google-maps";
+// import {
+//   GoogleMap,
+//   withScriptjs,
+//   withGoogleMap,
+//   Marker,
+//   Polygon,
+//   InfoWindow,
+// } from "react-google-maps";
 import Geocode from "react-geocode";
 import AutoComplete from "react-google-autocomplete";
 import Nav from "../components/Nav";
@@ -69,37 +69,37 @@ export default function Monitoring() {
     });
   };
 
-  const MapWithAMarker = withScriptjs(
-    withGoogleMap((props) => (
-      <GoogleMap
-        defaultZoom={15}
-        defaultCenter={{
-          lat: states.mapLocation?.lat,
-          lng: states.mapLocation?.lng,
-        }}
-      >
-        <Polygon
-          path={reversedCoords}
-          options={{
-            strokeColor: "#FFA500",
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: "#FFA500",
-            fillOpacity: 0.05,
-          }}
-        />
-        <Marker
-          // draggable={true}
-          // onDragEnd={(e) => onMarkerDragEnd(e)}
-          onClick={(e) => onMarkerClicked(e)}
-          position={{
-            lat: states.markerPosition?.lat,
-            lng: states.markerPosition?.lng,
-          }}
-        ></Marker>
-      </GoogleMap>
-    ))
-  );
+  // const MapWithAMarker = withScriptjs(
+  //   withGoogleMap((props) => (
+  //     <GoogleMap
+  //       defaultZoom={15}
+  //       defaultCenter={{
+  //         lat: states.mapLocation?.lat,
+  //         lng: states.mapLocation?.lng,
+  //       }}
+  //     >
+  //       <Polygon
+  //         path={reversedCoords}
+  //         options={{
+  //           strokeColor: "#FFA500",
+  //           strokeOpacity: 0.8,
+  //           strokeWeight: 2,
+  //           fillColor: "#FFA500",
+  //           fillOpacity: 0.05,
+  //         }}
+  //       />
+  //       <Marker
+  //         // draggable={true}
+  //         // onDragEnd={(e) => onMarkerDragEnd(e)}
+  //         // onClick={(e) => onMarkerClicked(e)}
+  //         position={{
+  //           lat: states.markerPosition?.lat,
+  //           lng: states.markerPosition?.lng,
+  //         }}
+  //       ></Marker>
+  //     </GoogleMap>
+  //   ))
+  // );
 
   const { status, data, error, isFetching } = useQuery(
     "todos",
