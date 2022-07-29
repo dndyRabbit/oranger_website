@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../redux/actions/authAction";
+import { register } from "../redux/actions/authAction";
 import { LoadingFullscreen } from "../components/LoadingBar";
 
 import Logo from "../images/lgoo.png";
@@ -12,11 +12,11 @@ const Register = () => {
     email: "",
     password: "",
     cf_password: "",
-    namaLengkap: "",
+    fullName: "",
   };
   const [userData, setUserData] = useState(initialState);
   const [err, setErr] = useState({});
-  const { email, password, cf_password, namaLengkap } = userData;
+  const { email, password, cf_password, fullName } = userData;
 
   const { auth, alert } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -25,8 +25,6 @@ const Register = () => {
   useEffect(() => {
     if (auth.token) navigate("/");
   }, [auth.token, navigate]);
-
-  console.log(alert.loading);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -37,21 +35,24 @@ const Register = () => {
     e.preventDefault();
     console.log(userData);
 
-    const { errMsg } = valid(userData);
-    console.log(errMsg);
+    const { errMsg, errLength } = valid(userData);
 
-    if (errMsg) return setErr(errMsg);
+    if (errLength > 0) return setErr(errMsg);
 
     console.log("ada");
 
-    // dispatch(login(userData));
+    dispatch(register(userData));
+
+    setUserData(initialState);
+
+    navigate("/");
   };
 
   return (
     <div className="flex mx-auto w-full h-full items-center justify-center p-5 ">
       <div className="w-full h-auto max-w-[500px]  bg-white rounded-lg shadow-lg p-4 ">
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-          <img src={Logo} alt="" className=" h-25 w-50 self-center" />
+          <img src={Logo} alt="" className=" h-25 w-72 self-center" />
 
           <div className="flex flex-col">
             <label>Email Address</label>
@@ -69,13 +70,13 @@ const Register = () => {
             <label>Nama Lengkap</label>
             <input
               type="text"
-              name="namaLengkap"
+              name="fullName"
               placeholder="Nama Lengkap..."
               className="p-2 bg-transparent border border-gray-300 rounded-md"
               onChange={handleChangeInput}
-              value={namaLengkap}
+              value={fullName}
             />
-            <p className="text-xs text-yellow-500">{err?.namaLengkap}</p>
+            <p className="text-xs text-yellow-500">{err?.fullName}</p>
           </div>
           <div className="flex flex-col">
             <label>Password</label>

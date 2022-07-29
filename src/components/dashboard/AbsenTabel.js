@@ -11,6 +11,9 @@ const AbsenTabel = ({
   setModal,
   select,
   handleChangeStatus,
+  idTabel,
+  setIsEdit,
+  isEdit,
 }) => {
   const img =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg";
@@ -22,7 +25,10 @@ const AbsenTabel = ({
       <div className="-my-2 sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle min-w-full sm:px-6 lg:px-8">
           <div className="shadow  overflow-auto border-b border-gray-200 max-h-[400px] -scroll-ml-2.5">
-            <table className="min-w-full divide-y divide-gray-200  ">
+            <table
+              className="min-w-full divide-y divide-gray-200  "
+              id={idTabel}
+            >
               <thead className="bg-gray-50">
                 <tr>
                   <th
@@ -69,6 +75,12 @@ const AbsenTabel = ({
                   >
                     Status Absen
                   </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Aksi
+                  </th>
                 </tr>
               </thead>
 
@@ -90,6 +102,8 @@ const AbsenTabel = ({
                           setModal={setModal}
                           handleChangeStatus={handleChangeStatus}
                           img={img}
+                          setIsEdit={setIsEdit}
+                          isEdit={isEdit}
                         />
                       );
                     })}
@@ -110,6 +124,8 @@ const AbsenTabel = ({
                           setModal={setModal}
                           handleChangeStatus={handleChangeStatus}
                           img={img}
+                          setIsEdit={setIsEdit}
+                          isEdit={isEdit}
                         />
                       );
                     })}
@@ -119,7 +135,7 @@ const AbsenTabel = ({
                       if (search === "") {
                         return val;
                       } else if (
-                        val.userId.namaLengkap
+                        val?.userId?.fullName
                           .toLowerCase()
                           .includes(search.toLowerCase())
                       ) {
@@ -134,6 +150,8 @@ const AbsenTabel = ({
                           setModal={setModal}
                           handleChangeStatus={handleChangeStatus}
                           img={img}
+                          setIsEdit={setIsEdit}
+                          isEdit={isEdit}
                         />
                       );
                     })}
@@ -150,6 +168,8 @@ const AbsenTabel = ({
                         setModal={setModal}
                         handleChangeStatus={handleChangeStatus}
                         img={img}
+                        setIsEdit={setIsEdit}
+                        isEdit={isEdit}
                       />
                     );
                   })}

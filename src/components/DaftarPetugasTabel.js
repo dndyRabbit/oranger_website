@@ -8,12 +8,30 @@ import { format } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../redux/actions/userAction";
 
-const Table = ({ dataTable, search, setSearch }) => {
+const Table = ({
+  dataTable,
+  search,
+  setSearch,
+  setIsInfo,
+  setInfoUserData,
+}) => {
   const dispatch = useDispatch();
   const { auth } = useSelector((state) => state);
 
-  const handleHapusPetugas = ({ id }) => {
-    dispatch(deleteUser({ auth, id, key: "main" }));
+  const handleInformationPetugas = (person) => {
+    setIsInfo(true);
+    setInfoUserData(person);
+  };
+
+  const handleHapusPetugas = (id) => {
+    if (
+      window.confirm(
+        `Apakah anda yakin ingin menghapus petugas ini?`,
+        `Jika iya, semua data petugas akan terhapus pada database.`
+      )
+    ) {
+      dispatch(deleteUser({ auth, id, key: "main" }));
+    }
   };
 
   return (
@@ -47,30 +65,6 @@ const Table = ({ dataTable, search, setSearch }) => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Jenis Kelamin
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    No.KTP
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    No.Handphone
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Alamat
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
                     Aksi
                   </th>
                 </tr>
@@ -82,9 +76,9 @@ const Table = ({ dataTable, search, setSearch }) => {
                     if (search == "") {
                       return val;
                     } else if (
-                      val.namaLengkap
+                      val?.fullName
                         .toLowerCase()
-                        .includes(search.toLowerCase())
+                        .includes(search?.toLowerCase())
                     ) {
                       return val;
                     }
@@ -116,21 +110,11 @@ const Table = ({ dataTable, search, setSearch }) => {
                           {person.birthday}
                         </td>
 
-                        <td className="px-6 py-4  text-sm text-gray-500">
-                          {person.gender}
-                        </td>
-                        <td className="px-6 py-4  text-sm text-gray-500">
-                          {person.ktp}
-                        </td>
-                        <td className="px-6 py-4  text-sm text-gray-500">
-                          {person.handphone}
-                        </td>
-
-                        <td className="px-6 py-4  text-sm text-gray-500">
-                          {person.address}
-                        </td>
                         <td className=" px-6 py-4  text-right text-sm font-medium space-y-6">
-                          <InformationCircleIcon className="h-6 p rounded-full text-gray-500 hover:text-blue-400 cursor-pointer transition hover:-skew-x-12" />
+                          <InformationCircleIcon
+                            onClick={() => handleInformationPetugas(person)}
+                            className="h-6 p rounded-full text-gray-500 hover:text-blue-400 cursor-pointer transition hover:-skew-x-12"
+                          />
 
                           <TrashIcon
                             onClick={() => handleHapusPetugas(person._id)}

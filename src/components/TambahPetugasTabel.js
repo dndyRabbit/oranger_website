@@ -10,16 +10,16 @@ const TambahPetugasTabel = ({ userNotVerified }) => {
   const { auth } = useSelector((state) => state);
 
   const handleTambahPetugas = ({ id }) => {
-    console.log(id);
-    dispatch(updateVerifikasiUser({ auth, id }));
+    if (window.confirm(`Apakah anda yakin ingin menambahkan petugas ini?`)) {
+      dispatch(updateVerifikasiUser({ auth, id }));
+    }
   };
 
   const handleHapusPetugas = ({ id }) => {
-    console.log(id);
-    dispatch(deleteUser({ auth, id }));
+    if (window.confirm(`Apakah anda yakin ingin menghapus petugas ini?`)) {
+      dispatch(deleteUser({ auth, id }));
+    }
   };
-
-  console.log(userNotVerified);
   return (
     <div className="flex flex-col">
       <div className="-my-2   sm:-mx-6 lg:-mx-8">

@@ -1,163 +1,147 @@
-import { useEffect, useState } from "react";
-// import {
-//   GoogleMap,
-//   withScriptjs,
-//   withGoogleMap,
-//   Marker,
-//   Polygon,
-//   InfoWindow,
-// } from "react-google-maps";
+import { useEffect, useRef, useState } from "react";
 import Geocode from "react-geocode";
 import AutoComplete from "react-google-autocomplete";
 import Nav from "../components/Nav";
 import { coordsObject } from "../coordinates";
-import axios from "axios";
 
-import { useDispatch, useSelector } from "react-redux";
+import useMoveMarker from "../helper/useMoveMarker";
+import {
+  GoogleMap,
+  Marker,
+  useLoadScript,
+  Polygon,
+} from "@react-google-maps/api";
+import LogoMarker from "../images/marker.png";
 
-import { useQuery, useMutation, useQueryClient } from "react-query";
-
-const MAP_KEY = process.env.REACT_APP_GOOGLE_MAPS_API;
-
-const reversedCoords = coordsObject.map((ll) => {
-  return { lat: ll.lng, lng: ll.lat };
-});
+const latLngs = [
+  [-6.2336, 106.767528],
+  [-6.242398, 106.770015],
+  [-6.240152, 106.777062],
+  [-6.234033, 106.777352],
+  [-6.233641, 106.772005],
+];
+const latLngs2 = [
+  [-6.2336, 106.767528],
+  [-6.240133, 106.7671],
+  [-6.240152, 106.777062],
+  [-6.241989, 106.768387],
+  [-6.233641, 106.772005],
+];
+const latLngs3 = [
+  [-6.243396, 106.771056],
+  [-6.242398, 106.770015],
+  [-6.242479, 106.776885],
+  [-6.241263, 106.773087],
+  [-6.233641, 106.772005],
+];
 
 export default function Monitoring() {
-  const [states, setStates] = useState({
-    address: "",
-    city: "",
-    area: "",
-    state: "",
-    zoom: 15,
-    height: "100%",
-    mapLocation: {
-      lat: -6.23682,
-      lng: 106.773598,
-    },
-    markerPosition: {
-      lat: -6.23682,
-      lng: 106.773598,
-    },
+  const [myLoc, setMyLoc] = useState(null);
+  const [myLoc1, setMyLoc1] = useState(null);
+  const [myLoc2, setMyLoc2] = useState(null);
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API,
   });
 
-  const [textdata, setText] = useState("perubahan 1");
-
-  const [intervalMs, setIntervalMs] = useState(5000);
-
-  const queryClient = useQueryClient();
-
-  const { auth, alert } = useSelector((state) => state);
-  const dispatch = useDispatch();
-
-  Geocode.setApiKey(MAP_KEY);
+  Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API);
   Geocode.enableDebug();
-  const gmapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${MAP_KEY}`;
 
-  const onMarkerClicked = (e) => {
-    console.log(e);
-    setStates({
-      mapLocation: {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-      },
-      markerPosition: {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-      },
-      zoom: 15,
-    });
-  };
-
-  // const MapWithAMarker = withScriptjs(
-  //   withGoogleMap((props) => (
-  //     <GoogleMap
-  //       defaultZoom={15}
-  //       defaultCenter={{
-  //         lat: states.mapLocation?.lat,
-  //         lng: states.mapLocation?.lng,
-  //       }}
-  //     >
-  //       <Polygon
-  //         path={reversedCoords}
-  //         options={{
-  //           strokeColor: "#FFA500",
-  //           strokeOpacity: 0.8,
-  //           strokeWeight: 2,
-  //           fillColor: "#FFA500",
-  //           fillOpacity: 0.05,
-  //         }}
-  //       />
-  //       <Marker
-  //         // draggable={true}
-  //         // onDragEnd={(e) => onMarkerDragEnd(e)}
-  //         // onClick={(e) => onMarkerClicked(e)}
-  //         position={{
-  //           lat: states.markerPosition?.lat,
-  //           lng: states.markerPosition?.lng,
-  //         }}
-  //       ></Marker>
-  //     </GoogleMap>
-  //   ))
-  // );
-
-  const { status, data, error, isFetching } = useQuery(
-    "todos",
-    async () => {
-      const res = await axios.get(`/api/getTest`, {
-        headers: { Authorization: auth.token },
-      });
-      return res.data;
-    },
-    {
-      // Refetch the data every second
-      refetchInterval: intervalMs,
-    }
-  );
-
-  // const postDataEverySecond = async () => {
-  //   await axios.patch(
-  //     `/api/updateTest/${data.data[0]._id}`,
-  //     { textdata },
-  //     {
-  //       headers: { Authorization: auth.token },
-  //     }
-  //   );
-  //   console.log("pathcing data");
-  // };
-
-  // useEffect(() => {
-  //   setInterval(postDataEverySecond, 5000);
-  // }, []);
-
-  console.log(data?.data?.[0]?._id);
+  useEffect(() => {
+    let interval = setInterval(() => {
+      let myGut = getRandomObject(latLngs);
+      let myGut1 = getRandomObject(latLngs2);
+      let myGut2 = getRandomObject(latLngs3);
+      setMyLoc(myGut);
+      setMyLoc1(myGut1);
+      setMyLoc2(myGut2);
+    }, 2000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col items-center">
       <Nav />
       <div className="w-full max-w-5xl">
         <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
-        <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
-        <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
+        <div className="flex ">
+          {loadError && <p>{loadError}</p>}
+          {!isLoaded && <p>Loading .. </p>}
 
-        <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
-        <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
-        <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
-        <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
-
-        <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
-        <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
-        <h2 className="my-4 font-semibold text-xl">MONITORING</h2>
-      </div>
-      <div className="w-screen">
-        {/* <MapWithAMarker
-          isMarkerShown
-          googleMapURL={gmapURL}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `600px` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
-        /> */}
+          {isLoaded && (
+            <GoogleMap
+              mapContainerStyle={{ width: "100%", height: "100vh" }}
+              zoom={15.7}
+              center={{ lat: -6.238384, lng: 106.772378 }}
+              // onClick={(e) => {
+              //   setCurrentCoords([e.latLng.lat(), e.latLng.lng()]);
+              // }}
+            >
+              <Polygon
+                paths={coordsObject}
+                options={{
+                  strokeColor: "#F36C1D",
+                  strokeWeight: 2,
+                  fillColor: "#F36C1D",
+                  fillOpacity: 0.1,
+                }}
+              />
+              {myLoc && myLoc1 && myLoc2 && (
+                <>
+                  <TravellingMarker
+                    position={{
+                      lat: myLoc?.[0],
+                      lng: myLoc?.[1],
+                    }}
+                  />
+                  <TravellingMarker
+                    position={{
+                      lat: myLoc1?.[0],
+                      lng: myLoc1?.[1],
+                    }}
+                  />
+                  <TravellingMarker
+                    position={{
+                      lat: myLoc2?.[0],
+                      lng: myLoc2?.[1],
+                    }}
+                  />
+                </>
+              )}
+            </GoogleMap>
+          )}
+        </div>
       </div>
     </div>
   );
 }
+
+function TravellingMarker({ position, ...rest }) {
+  let [coordinates, setDestination] = useMoveMarker([
+    position?.lat,
+    position?.lng,
+  ]);
+
+  useEffect(() => {
+    setDestination([position?.lat, position?.lng]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [position]);
+
+  return (
+    <Marker
+      position={{
+        lat: coordinates?.[0],
+        lng: coordinates?.[1],
+      }}
+      icon={LogoMarker}
+      // {...rest}
+    />
+  );
+}
+
+const getRandomObject = (array) => {
+  const randomObject = array[Math.floor(Math.random() * array.length)];
+  return randomObject;
+};

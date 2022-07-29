@@ -1,5 +1,6 @@
 import { GLOBALTYPES } from "./globalTypes";
 import { patchDataAPI, getDataAPI, deleteDataAPI } from "../../utils/fetchData";
+import { toast } from "react-toastify";
 
 export const USER_TYPES = {
   GET_PETUGAS: "GET_PETUGAS",
@@ -61,9 +62,6 @@ export const updateVerifikasiUser =
   ({ auth, id }) =>
   async (dispatch) => {
     try {
-      console.log(id);
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
       const res = await patchDataAPI(
         `updateVerifikasiPetugas/${id}`,
         {
@@ -84,7 +82,7 @@ export const updateVerifikasiUser =
         payload: { petugas: otherRes.data.user },
       });
 
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+      toast.success("Pendaftaran Petugas disetujui.");
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -99,9 +97,8 @@ export const deleteUser =
   ({ auth, id, key }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
       const res = await deleteDataAPI(`deletePetugas/${id}`, auth.token);
+
       await getDataAPI("allPetugas", auth.token);
 
       dispatch({
@@ -109,7 +106,7 @@ export const deleteUser =
         payload: { id },
       });
 
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+      toast.success("Delete Petugas berhasil.");
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,

@@ -55,6 +55,18 @@ const HistoryTabel = ({ dataTable, setModal }) => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
+                    Tanggal Mulai
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Tanggal Akhir
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
                     bukti
                   </th>
 
@@ -62,7 +74,7 @@ const HistoryTabel = ({ dataTable, setModal }) => {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    tanggal
+                    tanggal Pengajuan
                   </th>
                   <th
                     scope="col"
@@ -90,7 +102,7 @@ const HistoryTabel = ({ dataTable, setModal }) => {
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">
-                            {person.userId.namaLengkap}
+                            {person.userId.fullName}
                           </div>
                         </div>
                       </div>
@@ -104,6 +116,13 @@ const HistoryTabel = ({ dataTable, setModal }) => {
                     </td>
                     <td className="px-6 py-4  text-sm text-gray-500">
                       {person.description}
+                    </td>
+                    <td className="px-6 py-4 text-xs  text-gray-500">
+                      {format(new Date(person.startDate), "yyyy-MM-dd")}
+                    </td>
+
+                    <td className="px-6 py-4  text-xs  text-gray-500">
+                      {format(new Date(person.endDate), "yyyy-MM-dd")}
                     </td>
 
                     <td className="px-6 py-4  text-sm text-gray-500">

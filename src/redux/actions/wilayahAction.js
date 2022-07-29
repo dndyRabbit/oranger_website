@@ -46,15 +46,13 @@ export const postWilayah =
   ({ auth, state }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
       const res = await postDataAPI("postWilayah", state, auth.token);
 
       dispatch({
         type: WILAYAH_TYPES.POST_WILAYAH,
         payload: { wilayah: res.data.wilayah },
       });
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+      toast.success("Berhasil membuat wilayah baru.");
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,

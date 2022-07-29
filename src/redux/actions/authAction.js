@@ -29,6 +29,17 @@ export const login = (userData) => async (dispatch) => {
   }
 };
 
+export const register = (userData) => async (dispatch) => {
+  try {
+    await postDataAPI("registerAdmin", userData);
+
+    toast.success("Register Berhasil.");
+    toast.success("Hubungi kepala admin untuk mengakses akun.");
+  } catch (err) {
+    toast.warn(err.response.data.msg);
+  }
+};
+
 export const refreshToken = () => async (dispatch) => {
   const firstLogin = localStorage.getItem("firstLogin");
   if (firstLogin) {

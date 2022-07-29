@@ -11,7 +11,6 @@ import {
   PlusCircleIcon,
   TrashIcon,
 } from "@heroicons/react/outline";
-import { LoadingComponent } from "../../components/LoadingBar";
 
 import WilayahModal from "../../components/dashboard/wilayahModal";
 import {

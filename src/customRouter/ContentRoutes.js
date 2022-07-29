@@ -15,6 +15,8 @@ import Monitoring from "../pages/monitoring";
 import Profile from "../pages/profile";
 import NoPageFound from "../components/NoPageFound";
 
+import AdminSettings from "../pages/dashboard/adminSetting.page";
+
 const ContentRoutes = () => {
   return (
     <Routes>
@@ -28,6 +30,7 @@ const ContentRoutes = () => {
       <Route path="/dashboard/permission/history" element={<History />} />
       <Route path="/dashboard/role" element={<Role />} />
       <Route path="/dashboard/wilayah" element={<Wilayah />} />
+      <Route path="/admin_setting" element={<AdminSettings />} />
       <Route path="*" element={<NoPageFound />} />
     </Routes>
   );

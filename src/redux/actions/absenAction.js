@@ -13,18 +13,13 @@ export const getAbsenByDate =
   ({ date, auth }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-      console.log(date);
-
       const res = await getDataAPI(`petugas/absen/${date}`, auth.token);
 
-      console.log(res.data);
+      console.log(res);
       dispatch({
         type: ABSEN_TYPES.GET_ABSEN,
-        payload: { user: res.data.user[0] },
+        payload: { user: res?.data?.user?.[0] },
       });
-
-      dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -39,7 +34,6 @@ export const postPetugasAbsen =
   ({ auth, newData, date }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
       console.log(newData);
 
       const res = await postDataAPI(
@@ -77,21 +71,14 @@ export const patchPetugasAbsen =
   ({ auth, userId, newStatusAbsen, date }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
-      const res = await patchDataAPI(
+      await patchDataAPI(
         `petugas/updateAbsen/${date}/${userId}`,
         {
           statusAbsen: newStatusAbsen,
         },
         auth.token
       );
-
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: { success: res.data.msg },
-      });
-      toast.success(res.data.msg);
+      toast.success("Status Absen Petugas Berhasil Diubah.");
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,

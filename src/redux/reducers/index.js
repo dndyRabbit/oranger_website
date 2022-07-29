@@ -13,6 +13,8 @@ import userRute from "./ruteReducer";
 import report from "./reportReducer";
 import permission from "./permissionReducer";
 import permissionApproved from "./permissionApprovedReducer";
+import location from "./locationReducer";
+import admin from "./adminReducer";
 
 export default combineReducers({
   auth,
@@ -29,4 +31,6 @@ export default combineReducers({
   permission,
   permissionApproved,
   petugasAndRolesAbsensi,
+  location,
+  admin,
 });

@@ -11,12 +11,15 @@ import {
   getUsersAndRoles,
   getUsersAndRolesAbsensi,
 } from "./redux/actions/wilayahAction";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getLocationUser } from "./redux/actions/locationAction";
+import { getAdmin } from "./redux/actions/adminAction";
 
 function App() {
-  const { auth, alert } = useSelector((state) => state);
+  const { auth, alert, location } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,8 +31,19 @@ function App() {
       dispatch(getAllUser({ auth }));
       dispatch(getUsersAndRoles({ auth }));
       dispatch(getUsersAndRolesAbsensi({ auth }));
+      dispatch(getUsersAndRolesAbsensi({ auth }));
+      dispatch(getAdmin({ auth }));
     }
   }, [auth.token]);
+
+  useEffect(() => {
+    if (auth.token) {
+      const interval = setInterval(() => {
+        dispatch(getLocationUser({ auth }));
+      }, 1000 * 60 * 2); //every 2 minute send a location
+      return () => clearInterval(interval);
+    }
+  }, []);
 
   return (
     <Router>

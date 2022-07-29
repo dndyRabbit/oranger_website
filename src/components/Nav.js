@@ -35,8 +35,10 @@ const Nav = () => {
     navigate("/");
   };
 
+  console.log(auth.user.root);
+
   return (
-    <div className="flex w-full h-24 bg-white shadow-md items-center justify-center">
+    <div className="flex w-full h-24 bg-white shadow-md items-center justify-center z-10">
       <div className="flex flex-row w-full max-w-5xl items-center justify-between ">
         <Link to="/">
           <img
@@ -97,6 +99,14 @@ const Nav = () => {
                   >
                     Profile
                   </Link>
+                  {auth?.user?.root && (
+                    <Link
+                      to="/admin_setting"
+                      className="hover:bg-gray-200 text-gray-700 block px-4 py-2 text-sm"
+                    >
+                      Admin Setting
+                    </Link>
+                  )}
 
                   <form method="POST" action="#" onSubmit={handleLogout}>
                     <button

@@ -1,25 +1,21 @@
 import React, { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { CheckIcon } from "@heroicons/react/solid";
 
-import { useDispatch, useSelector } from "react-redux";
-import InputWilayah from "./InputWilayah";
-import AddPetugasRuteTabel from "./AddPetugasRuteTabel";
-import ListPetugasRuteTabel from "./ListPetugasRuteTabel";
-
-export default function WilayahModal({ modal, setModal }) {
+export default function InformationUserDataModal({
+  isInfo,
+  setIsInfo,
+  infoUserData,
+}) {
   const cancelButtonRef = useRef(null);
 
-  const handleClick = () => {
-    setModal({ isOpen: false });
-  };
-
   return (
-    <Transition.Root show={modal.isOpen} as={Fragment}>
+    <Transition.Root show={isInfo} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
         initialFocus={cancelButtonRef}
-        onClose={setModal}
+        onClose={setIsInfo}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 ">
           <Transition.Child as={Fragment}>
@@ -35,19 +31,37 @@ export default function WilayahModal({ modal, setModal }) {
           </span>
           {/* ------------------------- */}
           <Transition.Child as={Fragment}>
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full sm:max-h-5xl sm:h-full">
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full sm:max-h-5xl sm:h-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 sm:px-4">
                 <div className="sm:items-start">
                   {/* This is where you edit inside the modal */}
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left overflow space-y-4">
+                    <h3 className="font-bold text-xl items-center underline">
+                      Data Lengkap {infoUserData.fullName}
+                    </h3>
                     {/* Map funtionally petugas pasukan oranye yang akan di tambahkan */}
-                    {modal.isAddWilayah && <InputWilayah />}
-                    {modal.isAddPetugas && (
-                      <AddPetugasRuteTabel modal={modal} />
-                    )}
-                    {modal.isListPetugas && (
-                      <ListPetugasRuteTabel modal={modal} />
-                    )}
+                    <div className="flex justify-between">
+                      <div className="flex-1 font-medium space-y-2">
+                        <p>Nama</p>
+                        <p>Email</p>
+                        <p>Alamat Lengkap</p>
+                        <p>Gender</p>
+                        <p>Handphone</p>
+                        <p>Email</p>
+                        <p>KTP</p>
+                        <p>Tanggal Lahir</p>
+                      </div>
+                      <div className="flex-1 text-right space-y-1 text-gray-500">
+                        <p>{infoUserData.fullName}</p>
+                        <p>{infoUserData.email}</p>
+                        <p>{infoUserData.address}</p>
+                        <p>{infoUserData.gender}</p>
+                        <p>{infoUserData.handphone}</p>
+                        <p>{infoUserData.email}</p>
+                        <p>{infoUserData.ktp}</p>
+                        <p>{infoUserData.birthday}</p>
+                      </div>
+                    </div>
                   </div>
 
                   {/* ------------------------ */}
@@ -57,7 +71,7 @@ export default function WilayahModal({ modal, setModal }) {
                 <button
                   type="button"
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={handleClick}
+                  onClick={() => setIsInfo(false)}
                   ref={cancelButtonRef}
                 >
                   Close

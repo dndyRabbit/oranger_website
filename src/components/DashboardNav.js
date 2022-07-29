@@ -5,10 +5,10 @@ const DashboardNav = ({ nav }) => {
   const pathname = useLocation();
 
   const navLinks = [
-    { label: "Presensi Petugas", path: "/dashboard/presensiPetugas" },
-    { label: "Hasil Pekerjaan", path: "/dashboard/report" },
     { label: "Role Petugas", path: "/dashboard/role" },
     { label: "Wilayah", path: "/dashboard/wilayah" },
+    { label: "Presensi Petugas", path: "/dashboard/presensiPetugas" },
+    { label: "Hasil Pekerjaan", path: "/dashboard/report" },
     { label: "Permission", path: "/dashboard/permission/submission" },
   ];
 

@@ -12,8 +12,6 @@ import ContentRoutes from "./ContentRoutes";
 const Routers = () => {
   const { auth } = useSelector((state) => state);
 
-  console.log(auth);
-
   const navigate = useNavigate();
 
   return (

@@ -47,5 +47,5 @@ export const optionsStatusAbsen = [
   { value: "Izin", label: "Izin" },
   { value: "Hadir", label: "Hadir" },
   { value: "Belum Absen", label: "Belum Absen" },
-  { value: "Tidak Hadir", label: "Tidak Hadir" },
+  { value: "Tidak Masuk", label: "Tidak Masuk" },
 ];

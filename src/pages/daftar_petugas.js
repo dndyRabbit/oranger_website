@@ -8,13 +8,17 @@ import { PlusCircleIcon } from "@heroicons/react/outline";
 
 import { getAllUserNotVerified } from "../redux/actions/userAction";
 import DaftarPetugasModal from "../components/Modal";
+import InformationUserDataModal from "../components/InformationUserData.modal";
 
 const DaftarPetugas = () => {
   const [search, setSearch] = useState(""); // put in redux later
 
   const { auth, user, petugasNotVerified } = useSelector((state) => state);
 
+  const [infoUserData, setInfoUserData] = useState(null);
+
   const [isOpen, setIsOpen] = useState(false);
+  const [isInfo, setIsInfo] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -22,11 +26,11 @@ const DaftarPetugas = () => {
     dispatch(getAllUserNotVerified({ auth }));
   }, [dispatch]);
 
-  console.log(user);
+  console.log(infoUserData, "INFO USER DATA");
   return (
     <div className="flex flex-col items-center">
       <Nav />
-      <div className="w-full max-w-5xl ">
+      <div className="w-full max-w-5xl">
         <h2 className="my-4 font-semibold text-xl">DAFTAR PETUGAS</h2>
         <div className="p-2 mt-6 rounded shadow bg-white">
           {/* Filter Component  */}
@@ -46,6 +50,8 @@ const DaftarPetugas = () => {
             dataTable={user?.petugas}
             search={search}
             setSearch={setSearch}
+            setIsInfo={setIsInfo}
+            setInfoUserData={setInfoUserData}
           />
         </div>
       </div>
@@ -54,6 +60,14 @@ const DaftarPetugas = () => {
           userNotVerified={petugasNotVerified?.petugasNotVerified}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
+        />
+      )}
+
+      {isInfo && (
+        <InformationUserDataModal
+          isInfo={isInfo}
+          setIsInfo={setIsInfo}
+          infoUserData={infoUserData}
         />
       )}
     </div>
