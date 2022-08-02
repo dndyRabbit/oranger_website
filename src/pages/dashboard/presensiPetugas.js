@@ -64,6 +64,7 @@ const PresensiPetugas = () => {
           role: item?.role,
           statusAbsen: "Belum Absen",
           photo: "",
+          photo2: "",
           absenIn: "",
           absenOut: "",
         };

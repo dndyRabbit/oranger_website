@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Geocode from "react-geocode";
 import AutoComplete from "react-google-autocomplete";
 import Nav from "../components/Nav";
@@ -12,33 +12,13 @@ import {
   Polygon,
 } from "@react-google-maps/api";
 import LogoMarker from "../images/marker.png";
-
-const latLngs = [
-  [-6.2336, 106.767528],
-  [-6.242398, 106.770015],
-  [-6.240152, 106.777062],
-  [-6.234033, 106.777352],
-  [-6.233641, 106.772005],
-];
-const latLngs2 = [
-  [-6.2336, 106.767528],
-  [-6.240133, 106.7671],
-  [-6.240152, 106.777062],
-  [-6.241989, 106.768387],
-  [-6.233641, 106.772005],
-];
-const latLngs3 = [
-  [-6.243396, 106.771056],
-  [-6.242398, 106.770015],
-  [-6.242479, 106.776885],
-  [-6.241263, 106.773087],
-  [-6.233641, 106.772005],
-];
+import { useSelector, useDispatch } from "react-redux";
+import { getLocationUser } from "../redux/actions/locationAction";
 
 export default function Monitoring() {
-  const [myLoc, setMyLoc] = useState(null);
-  const [myLoc1, setMyLoc1] = useState(null);
-  const [myLoc2, setMyLoc2] = useState(null);
+  const { location, auth } = useSelector((state) => state);
+
+  const dispatch = useDispatch();
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API,
@@ -48,18 +28,12 @@ export default function Monitoring() {
   Geocode.enableDebug();
 
   useEffect(() => {
-    let interval = setInterval(() => {
-      let myGut = getRandomObject(latLngs);
-      let myGut1 = getRandomObject(latLngs2);
-      let myGut2 = getRandomObject(latLngs3);
-      setMyLoc(myGut);
-      setMyLoc1(myGut1);
-      setMyLoc2(myGut2);
-    }, 2000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+    const interval = setInterval(() => {
+      dispatch(getLocationUser({ auth }));
+      console.log(location?.location, "THIS IS LOCATION DATAS");
+    }, 1000 * 6); //every 2 minute send a location
+    return () => clearInterval(interval);
+  }, [location.location]);
 
   return (
     <div className="flex flex-col items-center">
@@ -88,28 +62,17 @@ export default function Monitoring() {
                   fillOpacity: 0.1,
                 }}
               />
-              {myLoc && myLoc1 && myLoc2 && (
-                <>
+              {location?.location?.map((value, index) => {
+                return (
                   <TravellingMarker
+                    key={index}
                     position={{
-                      lat: myLoc?.[0],
-                      lng: myLoc?.[1],
+                      lat: value?.latLngs?.[0],
+                      lng: value?.latLngs?.[1],
                     }}
                   />
-                  <TravellingMarker
-                    position={{
-                      lat: myLoc1?.[0],
-                      lng: myLoc1?.[1],
-                    }}
-                  />
-                  <TravellingMarker
-                    position={{
-                      lat: myLoc2?.[0],
-                      lng: myLoc2?.[1],
-                    }}
-                  />
-                </>
-              )}
+                );
+              })}
             </GoogleMap>
           )}
         </div>

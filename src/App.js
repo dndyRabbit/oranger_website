@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { refreshToken } from "./redux/actions/authAction";
 
 import { getAllUser } from "./redux/actions/userAction";
@@ -35,15 +36,6 @@ function App() {
       dispatch(getAdmin({ auth }));
     }
   }, [auth.token]);
-
-  useEffect(() => {
-    if (auth.token) {
-      const interval = setInterval(() => {
-        dispatch(getLocationUser({ auth }));
-      }, 1000 * 60 * 2); //every 2 minute send a location
-      return () => clearInterval(interval);
-    }
-  }, []);
 
   return (
     <Router>

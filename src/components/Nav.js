@@ -35,8 +35,6 @@ const Nav = () => {
     navigate("/");
   };
 
-  console.log(auth.user.root);
-
   return (
     <div className="flex w-full h-24 bg-white shadow-md items-center justify-center z-10">
       <div className="flex flex-row w-full max-w-5xl items-center justify-between ">

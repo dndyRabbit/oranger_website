@@ -11,12 +11,13 @@ export const getLocationUser =
   ({ auth }) =>
   async (dispatch) => {
     try {
-      const res = await getDataAPI(`locationUser`, auth.token);
+      const res = await getDataAPI("locationUser", auth.token);
 
       dispatch({
         type: LOCATION_TYPES.GET_LOCATION_USER,
-        payload: { location: res?.data?.locationData },
+        payload: { location: res.data.data },
       });
+      console.log("DATA GET FROM BACKEND");
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
