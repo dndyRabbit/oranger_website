@@ -12,6 +12,7 @@ import {
 } from "../../redux/actions/ruteAction";
 
 const ListPetugasRuteTabel = ({ modal }) => {
+  const [loading, setLoading] = useState(false);
   const { auth, alert, userRute } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -22,21 +23,21 @@ const ListPetugasRuteTabel = ({ modal }) => {
       );
     }
   }, [modal.wilayahId]);
-  console.log(userRute);
 
   const handleRemovePetugasFromRute = ({ person }) => {
-    console.log(person);
     dispatch(
       patchIsRuted({
         auth,
         isRuted: false,
         userId: person.userId._id,
+        setLoading,
       })
     );
     dispatch(
       deleteUserRute({
         auth,
         ruteId: person._id,
+        setLoading,
       })
     );
   };
@@ -104,7 +105,7 @@ const ListPetugasRuteTabel = ({ modal }) => {
                       {person?.role}
                     </td>
                     <td className="px-6 py-4 text-sm font-medium space-y-4 ">
-                      {alert.loading ? (
+                      {loading ? (
                         <LoadingSmall />
                       ) : (
                         <TrashIcon

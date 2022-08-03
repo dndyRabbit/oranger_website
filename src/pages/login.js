@@ -55,7 +55,7 @@ const Login = () => {
             <input
               type="password"
               name="password"
-              placeholder="Examples@gmail.com"
+              placeholder=""
               className="p-2 bg-transparent border border-gray-300 rounded-md"
               onChange={handleChangeInput}
               value={password}

@@ -77,7 +77,6 @@ export const patchIsRuted =
   ({ auth, isRuted, userId, roleId }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
       const res = await patchDataAPI(
         `updateIsRuted/${userId}`,
         {
@@ -91,15 +90,8 @@ export const patchIsRuted =
         payload: { id: roleId },
       });
 
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
       toast.success(res.data.msg);
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
       toast.warn(err.response.data.msg);
     }
   };
@@ -132,11 +124,10 @@ export const patchAllIsRuted =
   };
 
 export const deleteUserRute =
-  ({ auth, ruteId }) =>
+  ({ auth, ruteId, setLoading }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
+      setLoading(true);
       const res = await deleteDataAPI(
         `deleteUserRute/${ruteId}`,
 
@@ -147,16 +138,10 @@ export const deleteUserRute =
         type: RUTE_TYPES.DELETE_RUTE_USER,
         payload: { id: ruteId },
       });
-
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+      setLoading(false);
       toast.success(res.data.msg);
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
+      setLoading(false);
       toast.warn(err.response.data.msg);
     }
   };
