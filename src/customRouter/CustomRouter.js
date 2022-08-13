@@ -14,14 +14,14 @@ const Routers = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!auth.token) {
+    if (!auth?.token) {
       navigate("/");
     }
-  }, [auth.token]);
+  }, [auth?.token]);
 
   return (
     <div className="h-screen w-screen">
-      {auth.token ? <ContentRoutes /> : <AuthRoutes />}
+      {auth?.token ? <ContentRoutes /> : <AuthRoutes />}
       {/* <AuthRoutes /> */}
     </div>
   );

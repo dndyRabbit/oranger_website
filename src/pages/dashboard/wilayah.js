@@ -30,6 +30,7 @@ const Wilayah = () => {
     isAddPetugas: false,
     isListPetugas: false,
   });
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -37,8 +38,8 @@ const Wilayah = () => {
 
   useEffect(() => {
     if (auth.token) {
-      dispatch(getWilayah({ auth }));
-      dispatch(getUsersAndRoles({ auth }));
+      dispatch(getWilayah({ auth, setLoading }));
+      dispatch(getUsersAndRoles({ auth, setLoading }));
     }
   }, [dispatch, auth.token]);
 
@@ -153,7 +154,7 @@ const Wilayah = () => {
 
         {modal.isOpen && <WilayahModal modal={modal} setModal={setModal} />}
 
-        {/* {alert.loading && <LoadingComponent height={"400px"} />} */}
+        {loading && <LoadingComponent height={"400px"} />}
       </div>
     </div>
   );

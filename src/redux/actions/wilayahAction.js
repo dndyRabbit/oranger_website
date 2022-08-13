@@ -19,58 +19,37 @@ export const WILAYAH_TYPES = {
 };
 
 export const getWilayah =
-  ({ auth }) =>
+  ({ auth, setLoading }) =>
   async (dispatch) => {
     try {
+      setLoading(true);
       const res = await getDataAPI("getWilayah", auth.token);
       dispatch({
         type: WILAYAH_TYPES.GET_WILAYAH,
         payload: { wilayah: res.data.wilayah },
       });
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       toast.warn(err.response.data.msg);
     }
   };
 
 export const postWilayah =
-  ({ auth, state }) =>
+  ({ auth, state, setLoading }) =>
   async (dispatch) => {
     try {
+      setLoading(true);
       const res = await postDataAPI("postWilayah", state, auth.token);
 
       dispatch({
         type: WILAYAH_TYPES.POST_WILAYAH,
         payload: { wilayah: res.data.wilayah },
       });
+      setLoading(false);
       toast.success("Berhasil membuat wilayah baru.");
     } catch (err) {
-      toast.warn(err.response.data.msg);
-    }
-  };
-
-export const updateWilayah =
-  ({ id, auth, marker, newWilayah }) =>
-  async (dispatch) => {
-    try {
-      const res = await patchDataAPI(
-        `updateWilayah/${id}`,
-        {
-          marker,
-          wilayah: newWilayah,
-        },
-        auth.token
-      );
-      dispatch({
-        type: WILAYAH_TYPES.PATCH_WILAYAH,
-        payload: { wilayah: res.data.wilayah, marker: res.data.marker },
-      });
-    } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
+      setLoading(false);
       toast.warn(err.response.data.msg);
     }
   };
@@ -97,23 +76,13 @@ export const getUsersAndRoles =
   ({ auth }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
       const res = await getDataAPI("getUsersAndRoles", auth.token);
 
       dispatch({
         type: WILAYAH_TYPES.GET_USERS_AND_ROLES,
         payload: { user: res.data.users },
       });
-
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
       toast.warn(err.response.data.msg);
     }
   };

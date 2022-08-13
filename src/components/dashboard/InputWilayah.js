@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postWilayah } from "../../redux/actions/wilayahAction";
-import { toast } from "react-toastify";
 
-const InputWilayah = () => {
+import { toast } from "react-toastify";
+import { LoadingSmall } from "../LoadingBar";
+
+const InputWilayah = ({ setLoading }) => {
   const initialState = {
     wilayahAwal: "",
     wilayahAkhir: "",
@@ -14,18 +16,20 @@ const InputWilayah = () => {
   const [state, setState] = useState(initialState);
   const { wilayahAwal, wilayahAkhir, alamat, latitude, longitude } = state;
 
+  const [loading, setLoading] = useState(false);
+
   const { auth } = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(state);
+
     if (!wilayahAwal || !wilayahAkhir || !alamat) {
       return toast.warning("Mohon isi lengkap data wilayah.");
     }
 
-    dispatch(postWilayah({ auth, state }));
+    dispatch(postWilayah({ auth, state, setLoading }));
     setState(initialState);
   };
 
@@ -130,12 +134,16 @@ const InputWilayah = () => {
                 </div>
               </div>
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                <button
-                  type="submit"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Save
-                </button>
+                {loading ? (
+                  <LoadingSmall />
+                ) : (
+                  <button
+                    type="submit"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Save
+                  </button>
+                )}
               </div>
             </div>
           </form>
