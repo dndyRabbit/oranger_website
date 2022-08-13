@@ -11,9 +11,13 @@ export const schedule = [
   {
     label: "Tim Siaga",
     children: [
-      { name: "Tim Siaga A", role: "timSiagaA" },
-      { name: "Tim Siaga B", role: "timSiagaB" },
-      { name: "Tim Siaga C", role: "timSiagaC" },
+      { name: "Tim Siaga 1", role: "timSiaga1" },
+      { name: "Tim Siaga 2", role: "timSiaga2" },
+      { name: "Tim Siaga 3", role: "timSiaga3" },
+      { name: "Tim Siaga 4", role: "timSiaga4" },
+      { name: "Tim Siaga 5", role: "timSiaga5" },
+      { name: "Tim Siaga 6", role: "timSiaga6" },
+      { name: "Tim Siaga 7", role: "timSiaga7" },
     ],
   },
   {
