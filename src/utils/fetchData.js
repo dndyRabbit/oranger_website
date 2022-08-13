@@ -25,6 +25,7 @@ export const postDataAPI = async (url, post, token) => {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
+      withCredentials: true,
     }
   );
   return res;
