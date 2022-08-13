@@ -170,8 +170,6 @@ export const deleteRole =
   ({ id, auth }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
       await deleteDataAPI(
         `deleteRole/${id}`,
 
@@ -186,11 +184,7 @@ export const deleteRole =
         payload: { user: res.data.user },
       });
 
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: { success: res.data.msg },
-      });
-      toast.success(res.data.msg);
+      toast.success("Role petugas berhasil dihapus.");
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,

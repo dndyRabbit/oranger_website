@@ -34,6 +34,22 @@ const AbsenTabelContent = ({
           {person?.absenIn ? person?.absenIn : "Belum Absen"}
         </span>
       </td>
+
+      <td className="px-6 py-4  text-xs text-gray-500">
+        <div className="flex-shrink-0 h-12 w-10">
+          <img
+            className="h-12 w-10 rounded-md cursor-pointer"
+            src={person?.photo ? person?.photo : img}
+            alt=""
+            onClick={() =>
+              setModal({
+                isOpen: true,
+                img: person?.photo ? person?.photo : img,
+              })
+            }
+          />
+        </div>
+      </td>
       <td className="px-6 py-4  text-sm text-gray-500">
         <span
           className={`px-2 inline-flex text-xs font-semibold rounded-full ${
@@ -50,12 +66,12 @@ const AbsenTabelContent = ({
         <div className="flex-shrink-0 h-12 w-10">
           <img
             className="h-12 w-10 rounded-md cursor-pointer"
-            src={person?.photo ? person?.photo : img}
+            src={person?.photo2 ? person?.photo2 : img}
             alt=""
             onClick={() =>
               setModal({
                 isOpen: true,
-                img: person?.photo ? person?.photo : img,
+                img: person?.photo2 ? person?.photo2 : img,
               })
             }
           />

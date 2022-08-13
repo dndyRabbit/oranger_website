@@ -5,9 +5,8 @@ import valid from "../../utils/valid";
 
 export const login = (userData) => async (dispatch) => {
   try {
-    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
     const res = await postDataAPI("loginAdmin", userData);
+
     dispatch({
       type: GLOBALTYPES.AUTH,
       payload: {
@@ -17,14 +16,16 @@ export const login = (userData) => async (dispatch) => {
     });
 
     localStorage.setItem("firstLogin", true);
+    localStorage.setItem(
+      "refreshToken",
+      JSON.stringify({
+        rf_token: res.data.refresh_token,
+        email: res.data.user.email,
+      })
+    );
 
-    dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
     toast.success(res.data.msg);
   } catch (err) {
-    dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: { error: err.response.data.msg },
-    });
     toast.warn(err.response.data.msg);
   }
 };
@@ -42,11 +43,15 @@ export const register = (userData) => async (dispatch) => {
 
 export const refreshToken = () => async (dispatch) => {
   const firstLogin = localStorage.getItem("firstLogin");
-  if (firstLogin) {
-    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+  const refreshToken = localStorage.getItem("refreshToken");
 
+  if (firstLogin) {
     try {
-      const res = await postDataAPI("refresh_token");
+      const obj = JSON.parse(refreshToken);
+      console.log(obj, "THIS IS RF _TOKEN ACCESSABLE");
+      const res = await postDataAPI("refresh_token", {
+        rf_token: obj.rf_token,
+      });
       console.log(res.data);
       dispatch({
         type: GLOBALTYPES.AUTH,
@@ -55,7 +60,6 @@ export const refreshToken = () => async (dispatch) => {
           user: res.data.user,
         },
       });
-      dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,

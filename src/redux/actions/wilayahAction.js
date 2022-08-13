@@ -22,22 +22,12 @@ export const getWilayah =
   ({ auth }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
       const res = await getDataAPI("getWilayah", auth.token);
       dispatch({
         type: WILAYAH_TYPES.GET_WILAYAH,
         payload: { wilayah: res.data.wilayah },
       });
-
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
       toast.warn(err.response.data.msg);
     }
   };
@@ -54,12 +44,6 @@ export const postWilayah =
       });
       toast.success("Berhasil membuat wilayah baru.");
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
       toast.warn(err.response.data.msg);
     }
   };
@@ -68,9 +52,6 @@ export const updateWilayah =
   ({ id, auth, marker, newWilayah }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-      console.log(id);
-
       const res = await patchDataAPI(
         `updateWilayah/${id}`,
         {
@@ -82,11 +63,6 @@ export const updateWilayah =
       dispatch({
         type: WILAYAH_TYPES.PATCH_WILAYAH,
         payload: { wilayah: res.data.wilayah, marker: res.data.marker },
-      });
-
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: { success: res.data.msg },
       });
     } catch (err) {
       dispatch({
@@ -103,25 +79,15 @@ export const deleteAllWilayah =
   ({ auth }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
-      const res = await deleteDataAPI(
+      await deleteDataAPI(
         `deleteAllWilayah`,
 
         auth.token
       );
       dispatch({ type: WILAYAH_TYPES.GET_WILAYAH, payload: {} });
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: { success: res.data.msg },
-      });
+
+      toast.success("Menghapus semua wilayah berhasil.");
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
       toast.warn(err.response.data.msg);
     }
   };

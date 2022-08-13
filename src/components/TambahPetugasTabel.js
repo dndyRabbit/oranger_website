@@ -105,12 +105,11 @@ const TambahPetugasTabel = ({ userNotVerified }) => {
                         </div>
                       </td>
                       <td className="px-6 py-4  text-sm text-gray-500">
-                        {/* {format(new Date(person.birthday), "yyyy-MM-dd")} */}
-                        {person.birthday}
+                        {format(new Date(person.birthday), "yyyy-MM-dd")}
                       </td>
 
                       <td className="px-6 py-4  text-sm text-gray-500">
-                        {person.gender}
+                        {person.gender == "00" ? "Laki-laki" : "Perempuan"}
                       </td>
                       <td className="px-6 py-4  text-sm text-gray-500">
                         {person.ktp}

@@ -13,7 +13,6 @@ const Routers = () => {
   const { auth } = useSelector((state) => state);
 
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!auth.token) {
       navigate("/");
@@ -23,6 +22,7 @@ const Routers = () => {
   return (
     <div className="h-screen w-screen">
       {auth.token ? <ContentRoutes /> : <AuthRoutes />}
+      {/* <AuthRoutes /> */}
     </div>
   );
 };

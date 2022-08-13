@@ -1,6 +1,7 @@
 import React, { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/solid";
+import { format } from "date-fns";
 
 export default function InformationUserDataModal({
   isInfo,
@@ -55,11 +56,20 @@ export default function InformationUserDataModal({
                         <p>{infoUserData.fullName}</p>
                         <p>{infoUserData.email}</p>
                         <p>{infoUserData.address}</p>
-                        <p>{infoUserData.gender}</p>
+                        <p>
+                          {infoUserData.gender == "00"
+                            ? "Laki-laki"
+                            : "Perempuan"}
+                        </p>
                         <p>{infoUserData.handphone}</p>
                         <p>{infoUserData.email}</p>
                         <p>{infoUserData.ktp}</p>
-                        <p>{infoUserData.birthday}</p>
+                        <p>
+                          {format(
+                            new Date(infoUserData.birthday),
+                            "yyyy-MM-dd"
+                          )}
+                        </p>
                       </div>
                     </div>
                   </div>

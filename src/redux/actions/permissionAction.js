@@ -80,15 +80,12 @@ export const patchUserStatusPermission =
         payload: { id },
       });
 
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { msg: res.data.msg } });
-      toast.success(res.data.msg);
+      if (status === "Disetujui") {
+        toast.success("Perizinan berhasil disetujui.");
+      } else {
+        toast.success("Perizinan berhasil ditolak.");
+      }
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
       toast.warn(err.response.data.msg);
     }
   };

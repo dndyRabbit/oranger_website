@@ -19,8 +19,6 @@ export const postRute =
   ({ auth, wilayahId, userId, role, roleId }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
       const res = await postDataAPI(
         "postRute",
         {
@@ -32,15 +30,8 @@ export const postRute =
         auth.token
       );
 
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
-      toast.success(res.data.msg);
+      toast.success("Berhasil menambahkan rute petugas.");
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
       toast.warn(err.response.data.msg);
     }
   };
@@ -49,8 +40,6 @@ export const getUserRuteAccordingWilayah =
   ({ auth, wilayahId }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
       const res = await getDataAPI(
         `getUserRuteAccordingWilayah/${wilayahId}`,
         auth.token
@@ -60,15 +49,7 @@ export const getUserRuteAccordingWilayah =
         type: RUTE_TYPES.GET_USER_RUTE_ACCORDING_TO_WILAYAH,
         payload: { user: res.data.user },
       });
-
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
       toast.warn(err.response.data.msg);
     }
   };
@@ -150,24 +131,15 @@ export const deleteAllUserRute =
   ({ auth }) =>
   async (dispatch) => {
     try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-
-      const res = await deleteDataAPI(`deleteAllUserRute`, auth.token);
+      await deleteDataAPI(`deleteAllUserRute`, auth.token);
 
       dispatch({
         type: RUTE_TYPES.GET_USER_RUTE_ACCORDING_TO_WILAYAH,
         payload: {},
       });
 
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
-      toast.success(res.data.msg);
+      toast.success("Menghapus semua rute petugas berhasil.");
     } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response.data.msg,
-        },
-      });
       toast.warn(err.response.data.msg);
     }
   };

@@ -84,6 +84,8 @@ const PresensiPetugas = () => {
     //Apakah data tersebut sudah ada pada tanggal sekarang
     const isDataExist = absen?.absensi;
 
+    console.log(absen, "ABSEN DATA");
+
     setAdditional({
       ...additional,
       newData,
@@ -96,9 +98,9 @@ const PresensiPetugas = () => {
   const handleGetAllPetugasData = (e) => {
     if (petugasNotRoled?.petugasNotRoled?.length > 0) {
       toast.warn(
-        `Ada ${petugasNotRoled?.petugasNotRoled?.length} petugas yang memiliki pekerjaan.`
+        `Ada ${petugasNotRoled?.petugasNotRoled?.length} petugas yang tidak memiliki role.`
       );
-      toast.warn("Mohon memilih pekerjaan petugas terlebih dahulu.");
+      toast.warn("Mohon memilih role petugas terlebih dahulu.");
     } else {
       if (
         window.confirm(

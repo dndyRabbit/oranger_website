@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postWilayah } from "../../redux/actions/wilayahAction";
+import { toast } from "react-toastify";
 
 const InputWilayah = () => {
   const initialState = {
@@ -20,6 +21,9 @@ const InputWilayah = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(state);
+    if (!wilayahAwal || !wilayahAkhir || !alamat) {
+      return toast.warning("Mohon isi lengkap data wilayah.");
+    }
 
     dispatch(postWilayah({ auth, state }));
     setState(initialState);

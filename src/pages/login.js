@@ -19,8 +19,6 @@ const Login = () => {
     if (auth.token) navigate("/");
   }, [auth.token, navigate]);
 
-  console.log(auth);
-
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
@@ -28,7 +26,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userData);
 
     dispatch(login(userData));
   };

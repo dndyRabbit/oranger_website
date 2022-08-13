@@ -37,7 +37,7 @@ export default function Monitoring() {
     const interval = setInterval(() => {
       dispatch(userLocation);
       console.log(location?.location, "THIS IS LOCATION DATAS");
-    }, 1000 * 30); //every 30 seconds send a location
+    }, 1000 * 10); //every 30 seconds send a location
     return () => clearInterval(interval);
   }, [location.location]);
 

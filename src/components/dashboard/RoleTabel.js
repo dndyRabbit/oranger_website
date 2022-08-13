@@ -10,6 +10,7 @@ import {
   getSpesificRole,
   deleteRole,
 } from "../../redux/actions/roleAction";
+import { toast } from "react-toastify";
 
 const RoleTabel = ({ petugasNotRoled, modal }) => {
   const { auth, alert, userRole } = useSelector((state) => state);
@@ -21,6 +22,11 @@ const RoleTabel = ({ petugasNotRoled, modal }) => {
   };
 
   const handleDeleteRolePetugas = ({ person }) => {
+    if (person.isRuted) {
+      return toast.warning(
+        "Petugas sudah memiliki rute, silahkan hapus rute petugas terlebih dahulu."
+      );
+    }
     dispatch(
       updateIsRoled({ auth, userId: person.userId._id, isRoled: false })
     );
@@ -32,8 +38,6 @@ const RoleTabel = ({ petugasNotRoled, modal }) => {
       dispatch(getSpesificRole({ auth, role: modal.role }));
     }
   }, [modal.role]);
-
-  console.log(petugasNotRoled);
 
   return (
     <div className="flex flex-col">
