@@ -75,16 +75,16 @@ export const refreshToken = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     localStorage.removeItem("firstLogin");
-    await postDataAPI("logout");
+    localStorage.removeItem("refreshToken");
+
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: {},
+    });
+
     window.location.href = "/";
     toast.success("Logout Berhasil");
   } catch (err) {
-    dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: {
-        error: err.respone.data.msg,
-      },
-    });
     toast.warn(err.response.data.msg);
   }
 };
