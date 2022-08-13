@@ -5,7 +5,7 @@ import { postWilayah } from "../../redux/actions/wilayahAction";
 import { toast } from "react-toastify";
 import { LoadingSmall } from "../LoadingBar";
 
-const InputWilayah = ({ setLoading }) => {
+const InputWilayah = () => {
   const initialState = {
     wilayahAwal: "",
     wilayahAkhir: "",
