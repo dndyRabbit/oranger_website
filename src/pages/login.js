@@ -9,6 +9,7 @@ import Logo from "../images/lgoo.png";
 const Login = () => {
   const initialState = { email: "", password: "" };
   const [userData, setUserData] = useState(initialState);
+  const [loading, setLoading] = useState(false);
   const { email, password } = userData;
 
   const { auth, alert } = useSelector((state) => state);
@@ -27,7 +28,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(login(userData));
+    dispatch(login(userData, setLoading));
   };
 
   return (
@@ -79,7 +80,7 @@ const Login = () => {
         </form>
       </div>
 
-      {alert.loading && <LoadingFullscreen />}
+      {loading && <LoadingFullscreen />}
     </div>
   );
 };

@@ -3,8 +3,9 @@ import { GLOBALTYPES } from "./globalTypes";
 import { postDataAPI } from "../../utils/fetchData";
 import valid from "../../utils/valid";
 
-export const login = (userData) => async (dispatch) => {
+export const login = (userData, setLoading) => async (dispatch) => {
   try {
+    setLoading(true);
     const res = await postDataAPI("loginAdmin", userData);
 
     dispatch({
@@ -23,9 +24,10 @@ export const login = (userData) => async (dispatch) => {
         email: res.data.user.email,
       })
     );
-
+    setLoading(false);
     toast.success(res.data.msg);
   } catch (err) {
+    setLoading(false);
     toast.warn(err.response.data.msg);
   }
 };
