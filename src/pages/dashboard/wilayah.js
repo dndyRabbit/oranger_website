@@ -22,6 +22,7 @@ import {
   deleteAllUserRute,
   patchAllIsRuted,
 } from "../../redux/actions/ruteAction";
+import { LoadingComponent } from "../../components/LoadingBar";
 
 const Wilayah = () => {
   const [modal, setModal] = useState({
