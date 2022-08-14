@@ -91,7 +91,8 @@ export default function Monitoring() {
             <GoogleMap
               mapContainerStyle={{ width: "100%", height: "100vh" }}
               zoom={15.7}
-              center={{ lat: -6.238384, lng: 106.772378 }}
+              // center={{ lat: -6.238384, lng: 106.772378 }}
+              center={{ lat: -7.412927, lng: 109.25614 }}
               onClick={(e) => {
                 setActiveMarker(null);
               }}
