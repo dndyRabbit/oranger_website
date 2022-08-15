@@ -24,13 +24,13 @@ const ContentRoutes = () => {
       <Route path="/monitoring" element={<Monitoring />} />
       <Route path="/daftar_petugas" element={<DaftarPetugas />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/dashboard/presensiPetugas" element={<PresensiPetugas />} />
-      <Route path="/dashboard/report" element={<Report />} />
-      <Route path="/dashboard/permission/submission" element={<Submission />} />
-      <Route path="/dashboard/permission/history" element={<History />} />
-      <Route path="/dashboard/role" element={<Role />} />
+      <Route path="/dashboard/absensi" element={<PresensiPetugas />} />
+      <Route path="/dashboard/pelaporan" element={<Report />} />
+      <Route path="/dashboard/perizinan/submission" element={<Submission />} />
+      <Route path="/dashboard/perizinan/history" element={<History />} />
+      <Route path="/dashboard/peran" element={<Role />} />
       <Route path="/dashboard/wilayah" element={<Wilayah />} />
-      <Route path="/admin_setting" element={<AdminSettings />} />
+      <Route path="/pengaturan_administrasi" element={<AdminSettings />} />
       <Route path="*" element={<NoPageFound />} />
     </Routes>
   );

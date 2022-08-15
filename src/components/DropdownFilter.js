@@ -8,7 +8,7 @@ const DropdownFilter = ({ select, setSelect, search, presensi }) => {
         htmlFor="country"
         className="block text-sm font-medium text-gray-700"
       >
-        Role:
+        Peran:
       </label>
       <select
         disabled={search || presensi ? true : false}

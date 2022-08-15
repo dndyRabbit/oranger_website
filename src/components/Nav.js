@@ -13,7 +13,7 @@ const Nav = () => {
   const navigate = useNavigate();
 
   const navLinks = [
-    { label: "Dashboard", path: "/dashboard/presensiPetugas" },
+    { label: "Dashboard", path: "/dashboard/absensi" },
     { label: "Monitoring", path: "/monitoring" },
     { label: "Daftar Petugas", path: "/daftar_petugas" },
   ];
@@ -99,10 +99,10 @@ const Nav = () => {
                   </Link>
                   {auth?.user?.root && (
                     <Link
-                      to="/admin_setting"
+                      to="/pengaturan_administrasi"
                       className="hover:bg-gray-200 text-gray-700 block px-4 py-2 text-sm"
                     >
-                      Admin Setting
+                      Pengaturan Administrasi
                     </Link>
                   )}
 

@@ -5,11 +5,11 @@ const DashboardNav = ({ nav }) => {
   const pathname = useLocation();
 
   const navLinks = [
-    { label: "Role Petugas", path: "/dashboard/role" },
-    { label: "Wilayah", path: "/dashboard/wilayah" },
-    { label: "Presensi Petugas", path: "/dashboard/presensiPetugas" },
-    { label: "Hasil Pekerjaan", path: "/dashboard/report" },
-    { label: "Permission", path: "/dashboard/permission/submission" },
+    { label: "Peran Petugas", path: "/dashboard/peran" },
+    { label: "Wilayah Petugas", path: "/dashboard/wilayah" },
+    { label: "Absensi Petugas", path: "/dashboard/absensi" },
+    { label: "Hasil Pelaporan", path: "/dashboard/pelaporan" },
+    { label: "Perizinan Petugas", path: "/dashboard/perizinan/submission" },
   ];
 
   const isActive = (pn) => {

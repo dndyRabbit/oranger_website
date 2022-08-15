@@ -5,8 +5,8 @@ const PermissionNav = ({ nav }) => {
   const pathname = useLocation();
 
   const navLinks = [
-    { label: "Pengajuan", path: "/dashboard/permission/submission" },
-    { label: "Riwayat", path: "/dashboard/permission/history" },
+    { label: "Pengajuan", path: "/dashboard/perizinan/submission" },
+    { label: "Riwayat", path: "/dashboard/perizinan/history" },
   ];
 
   const isActive = (pn) => {
