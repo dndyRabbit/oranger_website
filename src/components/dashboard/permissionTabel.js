@@ -125,13 +125,13 @@ const PermissionTabel = ({ dataTable, setModal }) => {
                         <div className="flex-shrink-0 h-10 w-10">
                           <img
                             className="h-10 w-10 rounded-full"
-                            src={person.userId.avatar}
+                            src={person?.userId?.avatar}
                             alt=""
                           />
                         </div>
                         <div className="ml-4">
                           <div className="text-xs font-medium text-gray-900">
-                            {person.userId.fullName}
+                            {person?.userId?.fullName}
                           </div>
                         </div>
                       </div>
@@ -141,29 +141,31 @@ const PermissionTabel = ({ dataTable, setModal }) => {
                     </td>
 
                     <td className="px-6 py-4 text-xs  text-gray-500">
-                      {person.type}
+                      {person?.type}
                     </td>
                     <td className="px-6 py-4  text-xs  text-gray-500">
-                      {person.description}
+                      {person?.description}
                     </td>
                     <td className="px-6 py-4 text-xs  text-gray-500">
-                      {format(new Date(person.startDate), "yyyy-MM-dd")}
+                      {person?.startDate &&
+                        format(new Date(person?.startDate), "yyyy-MM-dd")}
                     </td>
 
                     <td className="px-6 py-4  text-xs  text-gray-500">
-                      {format(new Date(person.endDate), "yyyy-MM-dd")}
+                      {person?.startDate &&
+                        format(new Date(person?.endDate), "yyyy-MM-dd")}
                     </td>
 
                     <td className="px-6 py-4 text-xs  text-gray-500">
                       <div className="flex-shrink-0 h-12 w-10">
                         <img
                           className="h-12 w-10 rounded-md cursor-pointer"
-                          src={person.evidence ? person.evidence : img}
+                          src={person?.evidence ? person?.evidence : img}
                           alt=""
                           onClick={() =>
                             setModal({
                               isOpen: true,
-                              img: person.evidence ? person.evidence : img,
+                              img: person?.evidence ? person?.evidence : img,
                             })
                           }
                         />
@@ -171,13 +173,16 @@ const PermissionTabel = ({ dataTable, setModal }) => {
                     </td>
 
                     <td className="px-6 py-4 text-gray-500 text-xs">
-                      {format(new Date(person.date), "yyyy-MM-dd")}
+                      {format(new Date(person?.date), "yyyy-MM-dd")}
                     </td>
 
                     <td className=" px-6 py-4  text-right text-xs  font-medium space-y-6">
                       <CheckCircleIcon
                         onClick={() =>
-                          handleApprovePermission({ id: person._id, key: true })
+                          handleApprovePermission({
+                            id: person?._id,
+                            key: true,
+                          })
                         }
                         className="h-6 p rounded-full text-gray-500 hover:text-green-400 cursor-pointer transition hover:-skew-x-12"
                       />
@@ -185,7 +190,7 @@ const PermissionTabel = ({ dataTable, setModal }) => {
                       <TrashIcon
                         onClick={() =>
                           handleApprovePermission({
-                            id: person._id,
+                            id: person?._id,
                             key: false,
                           })
                         }
