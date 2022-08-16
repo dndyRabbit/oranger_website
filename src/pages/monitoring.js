@@ -37,7 +37,7 @@ export default function Monitoring() {
     const interval = setInterval(() => {
       dispatch(userLocation);
       console.log(location?.location, "THIS IS LOCATION DATAS");
-    }, 1000 * 30); //every 30 seconds send a location
+    }, 1000 * 10); //every 30 seconds send a location
     return () => clearInterval(interval);
   }, [location.location]);
 
@@ -69,11 +69,11 @@ export default function Monitoring() {
         icon={LogoMarker}
         // {...rest}
       >
-        {/* {activeMarker === data.userId._id ? (
+        {activeMarker === data.userId._id ? (
           <InfoWindow onCloseClick={() => setActiveMarker(null)}>
             <UserInfoWindow userData={data.userId} />
           </InfoWindow>
-        ) : null} */}
+        ) : null}
       </Marker>
     );
   }
@@ -125,8 +125,3 @@ export default function Monitoring() {
     </div>
   );
 }
-
-const getRandomObject = (array) => {
-  const randomObject = array[Math.floor(Math.random() * array.length)];
-  return randomObject;
-};
