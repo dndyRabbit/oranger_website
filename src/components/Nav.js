@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { logout } from "../redux/actions/authAction";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Logo from "../images/lgoo.png";
+import { getAllUser } from "../redux/actions/userAction";
+import {
+  getUsersAndRoles,
+  getUsersAndRolesAbsensi,
+} from "../redux/actions/wilayahAction";
+import { getAdmin } from "../redux/actions/adminAction";
 
 const Nav = () => {
   const { auth } = useSelector((state) => state);
@@ -34,6 +40,15 @@ const Nav = () => {
     dispatch(logout());
     navigate("/");
   };
+
+  useEffect(() => {
+    if (auth.token) {
+      dispatch(getAllUser({ auth }));
+      dispatch(getUsersAndRoles({ auth }));
+      dispatch(getUsersAndRolesAbsensi({ auth }));
+      dispatch(getAdmin({ auth }));
+    }
+  }, [auth.token, pathname.pathname]);
 
   return (
     <div className="flex w-full h-24 bg-white shadow-md items-center justify-center z-10">

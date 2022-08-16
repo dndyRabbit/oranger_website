@@ -65,13 +65,13 @@ export default function Monitoring() {
           lat: coordinates?.[0],
           lng: coordinates?.[1],
         }}
-        onClick={() => handleActiveMarker(data.userId._id)}
+        onClick={() => handleActiveMarker(data?.userId?._id)}
         icon={LogoMarker}
         // {...rest}
       >
-        {activeMarker === data.userId._id ? (
+        {activeMarker === data?.userId?._id ? (
           <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-            <UserInfoWindow userData={data.userId} />
+            <UserInfoWindow userData={data?.userId} />
           </InfoWindow>
         ) : null}
       </Marker>
