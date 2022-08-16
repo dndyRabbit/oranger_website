@@ -65,6 +65,12 @@ const ReportTabel = ({ dataTable, select, search, setModal }) => {
                   >
                     Alamat
                   </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    RT/RW
+                  </th>
                 </tr>
               </thead>
 
@@ -88,13 +94,13 @@ const ReportTabel = ({ dataTable, select, search, setModal }) => {
                               <div className="flex-shrink-0 h-10 w-10">
                                 <img
                                   className="h-10 w-10 rounded-full"
-                                  src={person.userId.avatar}
+                                  src={person?.userId?.avatar}
                                   alt=""
                                 />
                               </div>
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
-                                  {person.userId.fullName}
+                                  {person?.userId?.fullName}
                                 </div>
                               </div>
                             </div>
@@ -102,7 +108,6 @@ const ReportTabel = ({ dataTable, select, search, setModal }) => {
                           <td className="px-6 py-4  text-sm text-orange-500">
                             {person?.role}
                           </td>
-
                           <td className="px-6 py-4  text-sm text-gray-500">
                             <div className="flex-shrink-0 h-12 w-10">
                               <img
@@ -118,7 +123,6 @@ const ReportTabel = ({ dataTable, select, search, setModal }) => {
                               />
                             </div>
                           </td>
-
                           <td className="px-6 py-4  text-sm text-gray-500">
                             <div className="flex-shrink-0 h-12 w-10">
                               <img
@@ -155,7 +159,10 @@ const ReportTabel = ({ dataTable, select, search, setModal }) => {
                             {person.description}
                           </td>
                           <td className="px-6 py-4  text-sm text-gray-500">
-                            {person.wilayah.alamat}
+                            {person.alamat}
+                          </td>
+                          <td className="px-6 py-4  text-sm text-gray-500">
+                            {person.rtrw}
                           </td>
                         </tr>
                       ))
@@ -177,13 +184,13 @@ const ReportTabel = ({ dataTable, select, search, setModal }) => {
                               <div className="flex-shrink-0 h-10 w-10">
                                 <img
                                   className="h-10 w-10 rounded-full"
-                                  src={person.userId.avatar}
+                                  src={person?.userId?.avatar}
                                   alt=""
                                 />
                               </div>
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
-                                  {person.userId.fullName}
+                                  {person?.userId?.fullName}
                                 </div>
                               </div>
                             </div>
@@ -191,7 +198,6 @@ const ReportTabel = ({ dataTable, select, search, setModal }) => {
                           <td className="px-6 py-4  text-sm text-orange-500">
                             {person?.role}
                           </td>
-
                           <td className="px-6 py-4  text-sm text-gray-500">
                             <div className="flex-shrink-0 h-12 w-10">
                               <img
@@ -207,7 +213,6 @@ const ReportTabel = ({ dataTable, select, search, setModal }) => {
                               />
                             </div>
                           </td>
-
                           <td className="px-6 py-4  text-sm text-gray-500">
                             <div className="flex-shrink-0 h-12 w-10">
                               <img
@@ -244,7 +249,10 @@ const ReportTabel = ({ dataTable, select, search, setModal }) => {
                             {person.description}
                           </td>
                           <td className="px-6 py-4  text-sm text-gray-500">
-                            {person.wilayah.alamat}
+                            {person.alamat}
+                          </td>
+                          <td className="px-6 py-4  text-sm text-gray-500">
+                            {person.rtrw}
                           </td>
                         </tr>
                       ))}
