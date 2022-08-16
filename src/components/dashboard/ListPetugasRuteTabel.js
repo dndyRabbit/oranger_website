@@ -44,7 +44,7 @@ const ListPetugasRuteTabel = ({ modal }) => {
 
   return (
     <div className="flex flex-col">
-      <h3 className="mb-2 font-bold">List Rute Petugas</h3>
+      <h3 className="mb-2 font-bold">List Wilayah Petugas</h3>
       <div className="-my-2 sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle min-w-full sm:px-6 lg:px-8">
           <div className="shadow  overflow-auto border-b border-gray-200 max-h-[400px] -scroll-ml-2.5">

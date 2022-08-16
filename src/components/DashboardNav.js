@@ -8,7 +8,7 @@ const DashboardNav = ({ nav }) => {
     { label: "Peran Petugas", path: "/dashboard/peran" },
     { label: "Wilayah Petugas", path: "/dashboard/wilayah" },
     { label: "Absensi Petugas", path: "/dashboard/absensi" },
-    { label: "Hasil Pelaporan", path: "/dashboard/pelaporan" },
+    { label: "Pelaporan Pekerjaan", path: "/dashboard/pelaporan" },
     { label: "Perizinan Petugas", path: "/dashboard/perizinan/submission" },
   ];
 
