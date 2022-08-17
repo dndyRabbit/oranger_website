@@ -52,8 +52,6 @@ const Penjadwalan = () => {
     }
   };
 
-  console.log(petugasNotRoled?.petugasNotRoled);
-
   return (
     <div className="flex flex-col items-center">
       <Nav />

@@ -3,6 +3,7 @@ import {
   ChevronDownIcon,
   UserAddIcon,
   UserGroupIcon,
+  RefreshIcon,
   TrashIcon,
 } from "@heroicons/react/outline";
 
@@ -16,11 +17,11 @@ const Duty = ({
   return (
     <div className="mt-6 rounded shadow bg-white  p-2 flex flex-col ">
       <button
-        className="self-end flex  space-x-2 text-sm p-2 px-4 border border-red-400 rounded-md hover:text-white hover:bg-red-500 transition mb-2"
+        className="self-end flex  space-x-2 text-sm p-2 px-4 border border-red-400 rounded-md hover:text-white hover:bg-red-500 transition mb-2 "
         onClick={handleResetUserRole}
       >
-        <p>Reset Role</p>
-        <TrashIcon className=" h-5" />
+        <p className="text-sm">Atur ulang peran</p>
+        <RefreshIcon className=" h-5" />
       </button>
 
       {schedule.map((item, index) => {
