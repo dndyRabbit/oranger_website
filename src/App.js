@@ -17,6 +17,10 @@ function App() {
     dispatch(refreshToken());
   }, [dispatch, auth.token]);
 
+  useEffect(() => {
+    window.document.title = "Oranger";
+  }, []);
+
   return (
     <Router>
       <CustomRouter />

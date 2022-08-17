@@ -10,6 +10,7 @@ import {
   UserGroupIcon,
   PlusCircleIcon,
   TrashIcon,
+  RefreshIcon,
 } from "@heroicons/react/outline";
 
 import WilayahModal from "../../components/dashboard/wilayahModal";
@@ -95,15 +96,15 @@ const Wilayah = () => {
                 onClick={handleDeleteAllwilayah}
                 className="items-center space-x-2 cursor-pointer flex p-2 px-6 border rounded-md border-red-500 hover:bg-red-500 hover:text-white"
               >
-                <p>Reset Wilayah</p>
-                <TrashIcon className=" h-5" />
+                <p>Atur ulang wilayah</p>
+                <RefreshIcon className=" h-5" />
               </button>
               <button
                 onClick={handleResetPetugasRute}
                 className="items-center space-x-2 cursor-pointer flex p-2 px-6 border rounded-md border-red-500 hover:bg-red-500 hover:text-white "
               >
-                <p>Reset Rute</p>
-                <TrashIcon className=" h-5" />
+                <p>Atur ulang rute</p>
+                <RefreshIcon className=" h-5" />
               </button>
             </div>
           </div>
