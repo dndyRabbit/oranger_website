@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 
 import { useSelector } from "react-redux";
 
-import { Routes, Route, useNavigate, Link } from "react-router-dom";
-import Home from "../pages/home";
+import { useNavigate } from "react-router-dom";
 
 import AuthRoutes from "./AuthRoutes";
 
@@ -22,7 +21,6 @@ const Routers = () => {
   return (
     <div className="h-screen w-screen">
       {auth?.token ? <ContentRoutes /> : <AuthRoutes />}
-      {/* <AuthRoutes /> */}
     </div>
   );
 };

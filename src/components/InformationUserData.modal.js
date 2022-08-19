@@ -1,6 +1,5 @@
 import React, { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/solid";
 import { format } from "date-fns";
 
 export default function InformationUserDataModal({

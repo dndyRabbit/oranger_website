@@ -1,4 +1,3 @@
-import { DeleteData } from "../actions/globalTypes";
 import { WILAYAH_TYPES } from "../actions/wilayahAction";
 
 const initialState = {

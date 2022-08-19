@@ -14,6 +14,7 @@ const AddPetugasRuteTabel = ({ modal }) => {
 
   const [search, setSearch] = useState("");
   const [select, setSelect] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleAddPetugasToWilayah = ({ person }) => {
     console.log(person._id);
@@ -23,6 +24,7 @@ const AddPetugasRuteTabel = ({ modal }) => {
         wilayahId: modal.wilayahId,
         userId: person.userId._id,
         role: person.role,
+        setLoading,
       })
     );
     dispatch(
@@ -158,7 +160,7 @@ const AddPetugasRuteTabel = ({ modal }) => {
                             {person.role}
                           </td>
                           <td className="px-6 py-4 text-sm font-medium space-y-4 ">
-                            {alert.loading ? (
+                            {loading ? (
                               <LoadingSmall />
                             ) : (
                               <CheckIcon

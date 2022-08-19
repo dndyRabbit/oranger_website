@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import DashboardNav from "../../components/DashboardNav";
 import Nav from "../../components/Nav";
 
 import { useDispatch, useSelector } from "react-redux";
-
-import { format } from "date-fns";
 
 import AdminSettingTable from "../../components/AdminSetting.table";
 

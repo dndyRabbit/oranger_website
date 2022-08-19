@@ -16,9 +16,10 @@ export const RUTE_TYPES = {
 };
 
 export const postRute =
-  ({ auth, wilayahId, userId, role, roleId }) =>
+  ({ auth, wilayahId, userId, role, roleId, setLoading }) =>
   async (dispatch) => {
     try {
+      setLoading(true);
       const res = await postDataAPI(
         "postRute",
         {
@@ -31,8 +32,10 @@ export const postRute =
       );
 
       toast.success("Berhasil menambahkan rute petugas.");
+      setLoading(false);
     } catch (err) {
       toast.warn(err.response.data.msg);
+      setLoading(false);
     }
   };
 
