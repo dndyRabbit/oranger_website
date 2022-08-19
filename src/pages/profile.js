@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Nav from "../components/Nav";
-import { useDispatch, useSelector } from "react-redux";
-import { checkImage } from "../utils/imageUpload";
-import { GLOBALTYPES } from "../redux/actions/globalTypes";
-import { updateProfileUser } from "../redux/actions/profileAction";
-import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const { auth } = useSelector((state) => state);

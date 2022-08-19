@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
 import Geocode from "react-geocode";
-import AutoComplete from "react-google-autocomplete";
 import Nav from "../components/Nav";
 import { coordsObject } from "../coordinates";
 

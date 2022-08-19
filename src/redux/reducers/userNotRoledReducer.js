@@ -16,10 +16,6 @@ const userNotRoledReducer = (state = initialState, action) => {
       return {
         petugasNotRoled: DeleteData(state.petugasNotRoled, action.payload.id),
       };
-    // case ROLE_TYPES.DELETE_PETUGAS:
-    //   return {
-    //     petugasNotRoled: DeleteData(state.petugasNotRoled, action.payload.id),
-    //   };
     default:
       return state;
   }

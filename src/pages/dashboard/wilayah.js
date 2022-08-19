@@ -9,7 +9,6 @@ import {
   UserAddIcon,
   UserGroupIcon,
   PlusCircleIcon,
-  TrashIcon,
   RefreshIcon,
 } from "@heroicons/react/outline";
 
@@ -74,7 +73,6 @@ const Wilayah = () => {
         <DashboardNav />
 
         <div className="p-2 mt-6 rounded shadow text-sm ">
-          {/* Jadi Component Button */}
           <div className="flex justify-between w-full">
             <button
               onClick={() =>

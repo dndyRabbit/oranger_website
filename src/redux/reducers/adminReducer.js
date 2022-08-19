@@ -4,7 +4,7 @@ const initialState = {
   admin: [],
 };
 
-const absenReducer = (state = initialState, action) => {
+const adminReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADMIN_TYPES.GET_ADMIN:
       return {
@@ -41,4 +41,4 @@ const absenReducer = (state = initialState, action) => {
   }
 };
 
-export default absenReducer;
+export default adminReducer;

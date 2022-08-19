@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoadingSmall, LoadingComponent } from "../LoadingBar";
 
 import { TrashIcon } from "@heroicons/react/outline";
-import TabelFiter from "../TabelFiter";
+
 import {
   deleteUserRute,
   getUserRuteAccordingWilayah,

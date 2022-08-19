@@ -1,6 +1,5 @@
 import { GLOBALTYPES } from "./globalTypes";
-import { getDataAPI, postDataAPI } from "../../utils/fetchData";
-import { toast } from "react-toastify";
+import { getDataAPI } from "../../utils/fetchData";
 
 export const LOCATION_TYPES = {
   LOADING: "LOADING_ABSEN",

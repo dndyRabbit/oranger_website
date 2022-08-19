@@ -11,18 +11,13 @@ import { format } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TabelFiter from "../../../components/TabelFiter";
-
-import { LoadingComponent } from "../../../components/LoadingBar";
 import PreviewImageModal from "../../../components/dashboard/PreviewImageModal";
-import DropdownFilter from "../../../components/DropdownFilter";
-import PermissionTabel from "../../../components/dashboard/permissionTabel";
 import { getAllPermissionApproved } from "../../../redux/actions/permissionAction";
 import HistoryTabel from "../../../components/dashboard/HistoryTabel";
 
 const History = () => {
   const [pickDate, setPickDate] = useState(new Date());
   const [search, setSearch] = useState("");
-  const [select, setSelect] = useState("");
 
   const dispatch = useDispatch();
   const { auth, permissionApproved } = useSelector((state) => state);
@@ -32,13 +27,9 @@ const History = () => {
     img: "",
   });
 
-  const today = format(new Date(new Date()), "yyyy-MM-dd");
-
   useEffect(() => {
     if (auth.token) dispatch(getAllPermissionApproved({ auth }));
   }, [auth.token, dispatch]);
-
-  console.log(permissionApproved);
 
   const handleChangeDate = (e) => {
     const newDate = format(new Date(e), "yyyy-MM-dd");

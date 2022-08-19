@@ -1,20 +1,10 @@
 import React, { useState } from "react";
-import {
-  TrashIcon,
-  PencilAltIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/solid";
+import { TrashIcon, InformationCircleIcon } from "@heroicons/react/solid";
 import { format } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser } from "../redux/actions/userAction";
 
-const Table = ({
-  dataTable,
-  search,
-  setSearch,
-  setIsInfo,
-  setInfoUserData,
-}) => {
+const Table = ({ dataTable, search, setIsInfo, setInfoUserData }) => {
   const dispatch = useDispatch();
   const { auth } = useSelector((state) => state);
 

@@ -1,11 +1,6 @@
 import { toast } from "react-toastify";
-import { GLOBALTYPES } from "./globalTypes";
-import {
-  deleteDataAPI,
-  getDataAPI,
-  patchDataAPI,
-  postDataAPI,
-} from "../../utils/fetchData";
+
+import { getDataAPI, patchDataAPI } from "../../utils/fetchData";
 
 export const PERMISSION_TYPES = {
   GET_ALL_PERMISSION: "GET_ALL_PERMISSION",

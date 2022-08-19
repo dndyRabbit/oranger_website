@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { refreshToken } from "./redux/actions/authAction";
 
 import CustomRouter from "./customRouter/CustomRouter";

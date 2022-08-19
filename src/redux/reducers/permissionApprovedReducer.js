@@ -1,4 +1,3 @@
-import { DeleteData } from "../actions/globalTypes";
 import { PERMISSION_TYPES } from "../actions/permissionAction";
 
 const initialState = {
